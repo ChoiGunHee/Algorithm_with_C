@@ -1,3 +1,7 @@
+# 2021. 01. 16
+# Creater : Gunhee Choi
+# This file is MakeFile
+
 CC=gcc
 CFLAGS=-g -Wall
 OBJS=main.o Sim_Stack.o
