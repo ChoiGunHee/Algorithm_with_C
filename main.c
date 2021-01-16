@@ -1,11 +1,11 @@
-#include <stdio.h>
+#include "basic.h"
 #include "Sim_Stack.h"
 
 int main()
 {
 	printf("Hello World!\n");
 	
-	pop();
+	s_pop();
 	
 	return 0;
 }

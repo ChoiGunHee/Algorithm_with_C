@@ -6,7 +6,7 @@ TARGET=Main
 $(TARGET): $(OBJS)
 	$(CC) -o $@ $(OBJS)
 
-main.o: Sim_Stack.h main.c
+main.o: basic.h Sim_Stack.h main.c
 Sim_Stack.o: Sim_Stack.h Sim_Stack.c 
 
 all: $(TARGET)

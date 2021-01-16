@@ -6,6 +6,8 @@
 #ifndef SIM_STACK_H
 #define SIM_STACK_H
 
-int s_pop() {};
+#include "basic.h"
+
+int s_pop();
 
 #endif
