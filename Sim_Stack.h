@@ -8,6 +8,6 @@
 
 #include "basic.h"
 
-int s_pop();
+int pop();
 
 #endif

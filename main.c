@@ -10,7 +10,8 @@ int main()
 {
 	printf("Hello World!\n");
 	
-	s_pop();
+	pop();
+	Test();
 	
 	return 0;
 }
