@@ -6,6 +6,8 @@
 #ifndef BASIC_H
 #define BASIC_H
 
+#define NULL 0
+
 #include <stdio.h>
 #include <stdlib.h>
 

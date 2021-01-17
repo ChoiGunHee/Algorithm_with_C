@@ -8,6 +8,15 @@
 
 #include "basic.h"
 
-int Test();
+struct NODE  {
+	int data;
+	struct NODE * next;
+};
+
+int init_linked_list(struct NODE * head);
+int append_liked_list(struct NODE * head, int data);
+int delet_liked_list();
+int search_data();
+int print_linked_list_datas(struct NODE * head);
 
 #endif
