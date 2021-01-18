@@ -8,15 +8,15 @@
 
 #include "basic.h"
 
-struct NODE  {
+typedef struct _NODE  {
 	int data;
-	struct NODE * next;
-};
+	struct _NODE * next;
+} NODE;
 
-int init_linked_list(struct NODE * head);
-int append_liked_list(struct NODE * head, int data);
+int init_linked_list(NODE * head);
+int append_liked_list(NODE * head, int data);
 int delet_liked_list();
 int search_data();
-int print_linked_list_datas(struct NODE * head);
+int print_linked_list_datas(NODE * head);
 
 #endif

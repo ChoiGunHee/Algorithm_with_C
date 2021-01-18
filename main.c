@@ -5,22 +5,26 @@
 
 #include "basic.h"
 #include "Sim_Stack.h"
+#include "Linked_List.h"
 
 int main()
 {
-	struct Node * head;
-	
+	NODE * head;// = (NODE * ) malloc(sizeof(NODE));
+
 	printf("Hello World!\n");
 	
 	init_linked_list(head);
 	printf("%d\n", head->data);
-	append_liked_list(head, 5);
-	append_liked_list(head, 4);
-	append_liked_list(head, 3);
-	append_liked_list(head, 2);
-	append_liked_list(head, 1);
 	
-	print_linked_list_datas(head);
+	/*
+	append_liked_list(&head, 5);
+	append_liked_list(&head, 4);
+	append_liked_list(&head, 3);
+	append_liked_list(&head, 2);
+	append_liked_list(&head, 1);
+	
+	print_linked_list_datas(&head);
+	*/
 	
 	return 0;
 }

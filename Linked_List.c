@@ -5,21 +5,22 @@
 
 #include "Linked_List.h"
 
-int init_linked_list(struct NODE * head)
+int init_linked_list(NODE * node)
 {
-	head = malloc(sizeof(struct NODE));
-	head->data = 3;
-	head->next = NULL;
+	node = (NODE *) malloc(sizeof(NODE));
+	node->data = 100;
+	node->next = NULL;
 	
+	printf("init : %d\n", node->data);
 	printf("Sucess init Linked List!\n");
 	
-	return 0;
+	return 1;
 }
 
-int append_liked_list(struct NODE * head, int data)
+int append_liked_list(NODE * head, int data)
 {
-	struct NODE * temp_node;
-	struct NODE * data_node;
+	NODE * temp_node;
+	NODE * data_node;
 	
 	temp_node = head;
 	
@@ -30,7 +31,7 @@ int append_liked_list(struct NODE * head, int data)
 		
 	
 	
-	data_node = malloc(sizeof(struct NODE));
+	data_node = (NODE *) malloc(sizeof(NODE));
 	data_node->data = data;
 	data_node->next = NULL;
 	temp_node->next = data_node;
@@ -52,10 +53,10 @@ int search_data()
 	return 0;	
 }
 
-int print_linked_list_datas(struct NODE * head)
+int print_linked_list_datas(NODE * head)
 {
 	int i;
-	struct NODE * temp_node = head;
+	NODE * temp_node = head;
 	
 	printf("Print Linked List Datas!\n");
 	for( ; temp_node->next; )
