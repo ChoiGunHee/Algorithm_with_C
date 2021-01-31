@@ -8,6 +8,13 @@
 
 #include "basic.h"
 
+
+void stack_tset_function();
+void init_stack();
+int is_full();
+int is_empty();
+int push();
 int pop();
+int peek();
 
 #endif

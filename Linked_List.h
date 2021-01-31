@@ -8,12 +8,16 @@
 
 #include "basic.h"
 
-typedef struct _NODE  {
+typedef struct NODE  {
 	int data;
-	struct _NODE * next;
+	struct NODE * next;
 } NODE;
 
-int init_linked_list(NODE * head);
+//Test Function
+void linked_list_Test_function();
+
+NODE * init_linked_list(NODE * node);
+NODE * init_linked_list_test(NODE * node);
 int append_liked_list(NODE * head, int data);
 int delet_liked_list();
 int search_data();

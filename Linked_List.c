@@ -5,16 +5,45 @@
 
 #include "Linked_List.h"
 
-int init_linked_list(NODE * node)
+//Test Function
+void linked_list_Test_function()
 {
-	node = (NODE *) malloc(sizeof(NODE));
+	//Init Linked List Head
+	NODE * head = (NODE * ) malloc(sizeof(NODE));
+	printf("Hello World!\n");
+	
+	init_linked_list_test(head);
+	
+	append_liked_list(head, 5);
+	append_liked_list(head, 4);
+	
+	print_linked_list_datas(head);
+}
+
+NODE * init_linked_list(NODE * node)
+{
+	
+	NODE * temp_node = (NODE * ) malloc(sizeof(NODE));
+	temp_node->data = 100;
+	temp_node->next = NULL;
+	
+	node = temp_node;
+	
+	printf("init : %d\n", node->data);
+	printf("Sucess init Linked List!\n");
+	
+	return node;
+}
+
+NODE * init_linked_list_test(NODE * node)
+{
 	node->data = 100;
 	node->next = NULL;
 	
 	printf("init : %d\n", node->data);
 	printf("Sucess init Linked List!\n");
 	
-	return 1;
+	return node;
 }
 
 int append_liked_list(NODE * head, int data)
@@ -25,12 +54,9 @@ int append_liked_list(NODE * head, int data)
 	temp_node = head;
 	
 	while(temp_node->next != NULL){
-		printf("0\n");
 		temp_node = temp_node->next;
 	}
 		
-	
-	
 	data_node = (NODE *) malloc(sizeof(NODE));
 	data_node->data = data;
 	data_node->next = NULL;
@@ -55,14 +81,15 @@ int search_data()
 
 int print_linked_list_datas(NODE * head)
 {
-	int i;
+	int i = 0;
 	NODE * temp_node = head;
 	
 	printf("Print Linked List Datas!\n");
-	for( ; temp_node->next; )
+	while(temp_node != NULL)
 	{
-		printf("data %d : %d", i, temp_node->data);
+		printf("data %d : %d\n", i, temp_node->data);
 		temp_node = temp_node->next;
+		i++;
 	}
 	
 	return 0;	

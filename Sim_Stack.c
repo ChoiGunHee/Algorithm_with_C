@@ -5,10 +5,5 @@
 
 #include "Sim_Stack.h"
 
-int pop()
-{
-	printf("Test Pop()!\n");
-	return 0;
-}
 
 
