@@ -16,6 +16,9 @@ void linked_list_Test_function()
 	
 	append_liked_list(head, 5);
 	append_liked_list(head, 4);
+	append_liked_list(head, 3);
+	append_liked_list(head, 2);
+	append_liked_list(head, 1);
 	
 	print_linked_list_datas(head);
 }
@@ -82,12 +85,13 @@ int search_data()
 int print_linked_list_datas(NODE * head)
 {
 	int i = 0;
-	NODE * temp_node = head;
+	NODE * temp_node = head->next;
 	
 	printf("Print Linked List Datas!\n");
+	printf("data : ");
 	while(temp_node != NULL)
 	{
-		printf("data %d : %d\n", i, temp_node->data);
+		printf("%d ", temp_node->data);
 		temp_node = temp_node->next;
 		i++;
 	}
