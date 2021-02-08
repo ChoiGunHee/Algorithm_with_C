@@ -1,5 +1,5 @@
 /**
-* 2021. 01. 18
+* 2021. 02. 08
 * Creater : Gunhee Choi
 * Problem Number : 2577
 * Title : 숫자의 개수
@@ -32,28 +32,26 @@
 
 int main() {
 	int A, B, C, mul_result, temp;
-	int arr_num[9] = {0, };
 	char arr_num_string[9];
-	int arr_result[9] = {0, };
-	
-	
-	int i, j;
+	int arr_result[10] = {0, };
+	int i;
 	
 	scanf("%d %d %d", &A, &B, &C);
 	mul_result = A * B * C;
 	
 	sprintf(arr_num_string, "%d", mul_result);
-	printf("문자열 : %s\n", arr_num_string);
-	
 	
 	for(i=0; i<9; i++) {
-		for(j=0; j<9; j++) {
-			if()
-		}
+		//'1' - '0' = 1
+		//'1' - 48  = 1
+		temp = arr_num_string[i] - '0';
+		if(temp < 0)
+			break;
+		arr_result[temp]++;
 	}
 	
-	for(i=0; i<9; i++) {
-		printf("%d\n", arr_result[temp]);
+	for(i=0; i<10; i++) {
+		printf("%d\n", arr_result[i]);
 	}
 	
 	return 0;
