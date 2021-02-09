@@ -1,5 +1,5 @@
 /**
-* 2021. 01. 17
+* 2021. 02. 05
 * Creater : Gunhee Choi
 * Problem Number : 	10430
 * Title : 나머지

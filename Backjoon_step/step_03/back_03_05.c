@@ -1,5 +1,5 @@
 /**
-* 2021. 01. 18
+* 2021. 02. 05
 * Creater : Gunhee Choi
 * Problem Number : 2741
 * Title : N 찍기
