@@ -52,7 +52,25 @@ n을 d(n)의 생성자라고 한다. 위의 수열에서 33은 39의 생성자�
 #include <stdlib.h>
 
 
+int d(int n) {
+	int origin_n = n;
+	int result = n;
+	int count = 0;
+	
+	//10000
+	while(1) {
+		if(origin_n <= 0)
+			break;
+		
+		result += origin_n%10;
+		origin_n = origin_n/10;	
+	}
+	
+	return result;
+}
+
 int main() {
+	
 
 	return 0;
 }
