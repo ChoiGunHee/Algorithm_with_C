@@ -1,5 +1,5 @@
 /**
-* 2021. 02. 09
+* 2021. 02. 11
 * Creater : Gunhee Choi
 * Problem Number : 4673
 * Title : 셀프 넘버
@@ -50,14 +50,14 @@ n을 d(n)의 생성자라고 한다. 위의 수열에서 33은 39의 생성자�
 
 #include <stdio.h>
 #include <stdlib.h>
+#define MAX_COUNT 10001
 
-
+//셀프넘버 정의
 int d(int n) {
 	int origin_n = n;
 	int result = n;
 	int count = 0;
 	
-	//10000
 	while(1) {
 		if(origin_n <= 0)
 			break;
@@ -70,7 +70,26 @@ int d(int n) {
 }
 
 int main() {
+	int i, result;
+	int arr_result[MAX_COUNT] = {0, };
 	
-
+	//최대값까지 d(n) 반복
+	//생성자가 있는것을 찾아낸다
+	//만약 결과값이 최대값보다 크다면 그냥 넘어간다.
+	for(i=1; i<MAX_COUNT; i++) {
+		result = d(i);
+		if(result > MAX_COUNT)
+			continue;
+		
+		//생성자 있는 것을 체크
+		arr_result[result] = 1;
+	}
+	
+	//출력
+	for(i=1; i<MAX_COUNT; i++) {
+		if(arr_result[i] == 0)
+			printf("%d\n", i);
+	}
+	
 	return 0;
 }
