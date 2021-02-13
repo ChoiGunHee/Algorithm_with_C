@@ -1,5 +1,5 @@
 /**
-* 2021. 02. 12
+* 2021. 02. 13
 * Creater : Gunhee Choi
 * Problem Number : 2675
 * Title : 문자열 반복
@@ -25,25 +25,24 @@ QR Code "alphanumeric" 문자는 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ\$%*+-./: �
 
 int main() {
 	int num;
-	char arr[21];
-	char result[100];
-	int arr_len;
-	int i, j;
+	char arr[100];
+	char result[300];
+	int iter_num;
+	int i, j, m;
 	
 	scanf("%d", &num);
 	
 	for(i=0; i<num; i++) {
-		scanf("%d %s", &arr_len, arr);
-		//scanf("%d", &arr_len);
-		
-		for(j=0; j<arr_len; j++) {
-			result[j*3] = arr[j];
-			result[j*3 + 1] = arr[j];
-			result[j*3 + 2] = arr[j];
+		scanf("%d %s", &iter_num, arr);
+	
+		for(j=0; j<strlen(arr); j++)  {
+			for(m=0; m<iter_num; m++) {
+				result[j*iter_num + m] = arr[j];
+			}
 		}
-		result[arr_len*3] = '\0';
 		
-		printf("%s", result);
+		result[strlen(arr)*iter_num] = '\0';
+		printf("%s\n", result);
 	}
 	
 	return 0;
