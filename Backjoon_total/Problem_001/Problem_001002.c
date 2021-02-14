@@ -30,25 +30,50 @@
 
 **/
 
+
+//필요 함수
+// double sqrt(double x)
+// double pow(double x, double y)
+
+//컴파일시
+//gcc Problem_001002.c -lm
+
 #include <stdio.h>
 #include <math.h>
 
+//(x1, y1)과 (x2, y2)의 거리계산
+double distance(int x1, int y1, int x2, int y2) {
+	return sqrt( pow(x1-x2, 2) + pow(y1-y2, 2));	
+}
+
+//결과 계산
+int location_result(int r1, int r2, double dis) {
+	double r_sub = r1 > r2 ? r1-r2 : r2-r1;
+	
+	if(dis == 0 && r1 == r2)
+		return -1;
+	else if( ( dis < (r1+r2) ) && (r_sub < dis))
+		return 2;
+	else if( ( dis == (r1+r2) ) || ( dis == r_sub ))
+		return 1;
+	
+	return 0;
+}
+
 int main() {
 	int problem_num;
-	double x1, y1, r1;
-	double x2, y2, r2;
-	double result_x, result_y;
+	int x1, y1, r1;
+	int x2, y2, r2;
+	int result;
 	int i;
 	
-	
 	scanf("%d", &problem_num);
-	scanf("%lf %lf %lf %lf %lf %lf", x1, y1, r1, x2, y2, r2);
 	
 	for(i=0; i<problem_num; i++) {
-		
-		
+		scanf("%d %d %d %d %d %d", &x1, &y1, &r1, &x2, &y2, &r2);
+		result = location_result(r1, r2, distance(x1, y1, x2, y2));
+		printf("%d\n", result);
 	}
-	
 	
 	return 0;
 }
