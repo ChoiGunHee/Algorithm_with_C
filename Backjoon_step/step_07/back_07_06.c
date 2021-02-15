@@ -1,5 +1,5 @@
 /**
-* 2021. 02. 13
+* 2021. 02. 15
 * Creater : Gunhee Choi
 * Problem Number : 1152
 * Title : 단어의 개수
@@ -20,20 +20,25 @@
 #define MAX_LEN 1000001
 
 int main() {
-	char arr_string[MAX_LEN];
+	char arr[MAX_LEN] = {0, };
 	int arr_len;
 	int count = 0;
+	int check = 0;
 	int i;
 	
-	scanf("%s", arr_string);
-	arr_len = strlen(arr_string);
+	gets(arr);
+	arr_len = strlen(arr);
 	
 	for(i=0; i<arr_len; i++) {
-		if(arr_string[i] == 32)
+		if(arr[i] != ' ' && check == 0) {
 			count++;
+			check = 1;
+		} else if(arr[i] == ' ') {
+			check = 0;
+		}
 	}
 	
 	printf("%d\n", count);
-	printf("dd %d\n", ' ');
+	
 	return 0;
 }
