@@ -1,5 +1,5 @@
 /**
-* 2021. 02. 16
+* 2021. 02. 18
 * Creater : Gunhee Choi
 * Problem Number : 2941
 * Title : 크로아티아 알파벳
@@ -37,13 +37,48 @@ dž는 무조건 하나의 알파벳으로 쓰이고, d와 ž가 분리된 것�
 int main() {
 	char arr[101];
 	int arr_len;
+	int count = 0;
+	char temp;
 	int i;
 	
 	scanf("%s", arr);
-	arr_len = strlen(arr_len);
+	arr_len = strlen(arr);
 	
-	for(i=0; )
+	for(i=0; i<arr_len; i++) {
+		count++;
+		
+		switch(arr[i]) {
+			case '-' :
+				temp = arr[i-1];
+				if(temp == 'c' || temp == 'd') {
+					count--;
+				}
+				break;
+			
+			case 'j' :
+				temp = arr[i-1];
+				if(temp == 'l' || temp == 'n') {
+					count--;
+				}
+				break;
+				
+			case '=' :
+				temp = arr[i-1];
+				if(temp == 'c' || temp == 's') {
+					count--;
+				} else if(temp == 'z') {
+					if(arr[i-2] == 'd') {
+						count--;
+						count--;
+					} else {
+						count--;
+					}
+				}
+				break;
+		}
+	}
 	
+	printf("%d\n", count);
 	
 	return 0;
 }
