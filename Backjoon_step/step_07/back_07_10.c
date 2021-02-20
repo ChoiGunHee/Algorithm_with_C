@@ -36,7 +36,8 @@ int main() {
 	char arr[MAX_LEN];
 	int arr_len;
 	char alphabet[26];
-	int result = 0;
+	int word_result = 1;
+	int count = 0;
 	int i, j;
 	
 	scanf("%d", &problem_count);
@@ -48,19 +49,27 @@ int main() {
 		for(j=0; j<26; j++)
 			alphabet[j] = 0;
 		
-		for(j=0; j<arr_len; j++) {
-			if(alphabet[arr[j]-'a'] == 0) {
-				alphabet[arr[j]-'a'] = 1;
-			} else {
-				if(arr[j] != arr[j-1]) {
-					
+		word_result = 1;
+		
+		//시작값
+		alphabet[arr[0] - 'a'] = 1;
+		
+		for(j=1; j<arr_len; j++) {
+			if(arr[j] != arr[j-1]) {
+				
+				if(alphabet[arr[j]-'a'] != 1) {
+					alphabet[arr[j]-'a'] = 1;
+				} else {
+					word_result = 0;
+					break;
 				}
 			}
-			
-			
-		}
-	}
+		}//for j end
+		
+		if(word_result == 1)
+			count++;
+	}//for i end
 	
-	printf("%d\n", result;)
+	printf("%d\n", count);
 	return 0;
 }
