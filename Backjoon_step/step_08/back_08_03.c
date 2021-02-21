@@ -30,8 +30,9 @@ X가 주어졌을 때, X번째 분수를 구하는 프로그램을 작성하시�
 
 int main() {
 	int num;
-	int line_sum = 0;
-	int i = 1;
+	int line_sum = 1;
+	int gap;
+	int i = 2;
 	int p, c;
 	
 	scanf("%d", &num);
@@ -52,15 +53,15 @@ int main() {
 		i++;
 	}
 	
-	if(i%2 == 0) {
-		c = num - line_sum;
-		p = i + 1 - num - line_sum;
-	} else {
-		p = num - line_sum;
-		c = (p + 1) 
-	}
+	gap = num - line_sum;
 	
-	printf("i : %d, line_sum : %d\n", i, line_sum);
+	if(i%2 == 0) {
+		c = gap;
+		p = i + 1 - gap;
+	} else {
+		p = gap;
+		c = i + 1 - gap;
+	}
 	
 	printf("%d/%d\n", c, p);
 
