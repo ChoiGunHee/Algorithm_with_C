@@ -22,7 +22,7 @@
 
 int main() {
 	int A, B, V;
-	double result;
+	int result;
 	
 	scanf("%d %d %d", &A, &B, &V);
 	
@@ -31,7 +31,10 @@ int main() {
 		return 0;
 	}
 	
-	result = (V-A)/((double)A-B);
-	printf("%lf\n", result);
+	result = (V-A)/(A-B) + 1;
+	if( (V-A)%(A-B) != 0)
+		result += 1;
+	
+	printf("%d\n", result);
 	return 0;
 }
