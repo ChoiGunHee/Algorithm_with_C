@@ -28,6 +28,31 @@
 #include <stdio.h>
 
 int main() {
+	int p_num;
+	int k, n;
+	int arr_kn[15][15] = {0, };
+	int i, j, i_p;
+	
+	scanf("%d", &p_num);
+	
+	for(i_p=0; i_p<p_num; i_p++) {
+		
+		scanf("%d %d", &k, &n);
+		
+		//0층 입력
+		for(i=0; i<15; i++) {
+			arr_kn[0][i] = i;
+		}
+	
+		//K층, N호까지 계산
+		for(i=1; i<=k; i++) {
+			for(j=1; j<=n; j++) {
+				arr_kn[i][j] = arr_kn[i-1][j] + arr_kn[i][j-1];
+			}
+		}
+	
+		printf("%d\n", arr_kn[k][n]);
+	}
 	
 	return 0;
 }
