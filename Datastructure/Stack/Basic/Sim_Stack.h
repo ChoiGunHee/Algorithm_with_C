@@ -5,6 +5,8 @@
 
 #ifndef SIM_STACK_H
 #define SIM_STACK_H
+#define MAX_STACK_SIZE 100
+#define MAX_STRING 100
 
 #include "basic.h"
 

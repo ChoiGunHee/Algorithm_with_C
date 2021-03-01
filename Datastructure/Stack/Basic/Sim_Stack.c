@@ -8,6 +8,7 @@
 void stack_test_function() {
 	printf("func : stack_tset_function\n");
 	init_stack();
+	
 	is_full();
 	is_empty();
 	push();
