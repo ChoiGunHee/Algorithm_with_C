@@ -17,9 +17,9 @@ typedef struct {
 } StackType;
 
 void init_stack(StackType * stack);
-int is_full();
-int is_empty();
+int is_full(StackType * stack);
+int is_empty(StackType * stack);
 int push(StackType * stack, int data);
-int pop();
+int pop(StackType * stack);
 
 #endif
