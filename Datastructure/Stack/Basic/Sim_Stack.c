@@ -35,7 +35,3 @@ int pop(StackType * stack) {
 		return stack->data[(stack->top)--];
 	}
 }
-
-int peek() {
-	printf("func : peek\n");
-}

@@ -16,12 +16,10 @@ typedef struct {
 	int top;
 } StackType;
 
-void stack_test_function();
 void init_stack(StackType * stack);
 int is_full();
 int is_empty();
 int push(StackType * stack, int data);
 int pop();
-int peek();
 
 #endif
