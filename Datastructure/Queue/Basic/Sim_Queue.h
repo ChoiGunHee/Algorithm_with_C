@@ -5,7 +5,7 @@
 
 #ifndef SIM_QUEUE_H
 #define SIM_QUEUE_H
-#define MAX_QUEUE_SIZE 100
+#define MAX_QUEUE_SIZE 5
 #define MAX_STRING 100
 
 typedef struct {
@@ -14,10 +14,11 @@ typedef struct {
 	int data[MAX_QUEUE_SIZE];
 } QueueType;
 
-void init_stack(QueueType * queue);
+void init_queue(QueueType * queue);
 int is_full(QueueType * queue);
 int is_empty(QueueType * queue);
-int enqueue(QueueType * queue);
+int enqueue(QueueType * queue, int data);
 int dequeue(QueueType * queue);
+void print_queue(QueueType * queue);
 
 #endif
