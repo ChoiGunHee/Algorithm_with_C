@@ -51,7 +51,7 @@ void print_queue(QueueType * queue) {
 	
 	for(i=0; i<MAX_QUEUE_SIZE; i++) {
 		if(i <= queue->front || i> queue->rear)
-			printf(" | ");
+			printf("  |  ");
 		else
 			printf("%d | ", queue->data[i]);
 	}

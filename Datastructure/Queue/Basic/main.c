@@ -14,8 +14,8 @@ int main(void) {
 	enqueue(&q, 30);
 	print_queue(&q);
 	
-	data =dequeue(&q);
-	data =dequeue(&q);
+	data = dequeue(&q);
+	data = dequeue(&q);
 	print_queue(&q);
 	
 	return 0;
