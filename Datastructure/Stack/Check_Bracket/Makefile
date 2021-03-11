@@ -4,14 +4,15 @@
 
 CC=gcc
 CFLAGS=-g -Wall
-OBJS= Sim_Stack.o main.o
+OBJS= Sim_Stack.o Check_Matching.o main.o
 TARGET=Main
 
 $(TARGET): $(OBJS)
 	$(CC) -o $@ $(OBJS)
 
-Sim_Stack.o: Sim_Stack.h Sim_Stack.c 
-main.o: basic.h Sim_Stack.h main.c
+Sim_Stack.o: Sim_Stack.h Sim_Stack.c
+Check_Matching.o : Sim_Stack.h Check_Matching.h Check_Matching.c
+main.o: basic.h Sim_Stack.h Check_Matching.h main.c
 
 all: $(TARGET)
 

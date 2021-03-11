@@ -1,5 +1,6 @@
-#include "../Basic/basic.h"
-#include "../Basic/Sim_Stack.h"
+#include "basic.h"
+#include "Sim_Stack.h"
+#include "Check_Matching.h"
 
 int main(void) {
 	printf("Hello World!\n in Stack!!\n");
@@ -17,6 +18,8 @@ int main(void) {
 	printf("%d \n", pop(&stack));
 	
 	free(stack.data);
+	
+	Test();
 	
 	return 0;
 }
