@@ -18,7 +18,28 @@
 #include <stdio.h>
 #include <string.h>
 
+int reverse(char * arr, const int len) {
+	int i;
+	char temp;
+	printf("len : %d\n", len);
+	
+	for(i=0; i<len/2; i++) {
+		temp = arr[i];
+		arr[i] = arr[len - i - 1];
+		arr[len - i - 1] = temp;
+	}
+}
+
 int main() {
+	char ch_A[100];
+	
+	scanf("%s", ch_A);
+	
+	reverse(ch_A, strlen(ch_A) );
+	
+	printf("%s\n", ch_A);
+	
+	/*
 	char ch_A[100] = {0, };
 	char ch_B[100] = {0, };
 	char result[200];
@@ -61,6 +82,6 @@ int main() {
 		printf("%d", result[i]);
 	}
 	printf("\n");
-	
+	*/
 	return 0;
 }
