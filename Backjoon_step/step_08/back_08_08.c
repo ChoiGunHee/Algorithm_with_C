@@ -32,12 +32,18 @@ int reverse(char * arr, const int len) {
 
 int main() {
 	char ch_A[100];
+	char ch_B[100];
+	int len_A, len_B;
+	int max_len;
 	
-	scanf("%s", ch_A);
+	scanf("%s %s", ch_A, ch_B);
+	len_A = strlen(ch_A);
+	len_B = strlen(ch_B);
 	
-	reverse(ch_A, strlen(ch_A) );
+	reverse(ch_A, len_A);
+	reverse(ch_B, len_B);
 	
-	printf("%s\n", ch_A);
+	
 	
 	/*
 	char ch_A[100] = {0, };
