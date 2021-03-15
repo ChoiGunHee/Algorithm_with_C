@@ -21,7 +21,6 @@
 int reverse(char * arr, const int len) {
 	int i;
 	char temp;
-	printf("len : %d\n", len);
 	
 	for(i=0; i<len/2; i++) {
 		temp = arr[i];
@@ -31,19 +30,32 @@ int reverse(char * arr, const int len) {
 }
 
 int main() {
-	char ch_A[100];
-	char ch_B[100];
+	char ch_A[100] = {0, };
+	char ch_B[100] = {0, };
+	char result[100];
+	
 	int len_A, len_B;
 	int max_len;
+	int min_len;
+	int i;
 	
 	scanf("%s %s", ch_A, ch_B);
+	
 	len_A = strlen(ch_A);
 	len_B = strlen(ch_B);
+	max_len = len_A > len_B ? len_A : len_B;
+	min_len = len_A > len_B ? len_B : len_A;
 	
-	reverse(ch_A, len_A);
-	reverse(ch_B, len_B);
+	//reverse(ch_A, len_A);
+	//reverse(ch_B, len_B);
+	
+	for(i=0; i<max_len; i++) {
+		result[i] = ch_A[i] + ch_B[i] - '0';
+	}
+	result[max_len] = NULL;
 	
 	
+	printf("%s\n", result);
 	
 	/*
 	char ch_A[100] = {0, };
