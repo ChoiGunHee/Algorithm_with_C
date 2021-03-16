@@ -36,70 +36,41 @@ int main() {
 	
 	int len_A, len_B;
 	int max_len;
-	int min_len;
 	int i;
+	int value;
+	int up = 0;
 	
 	scanf("%s %s", ch_A, ch_B);
 	
 	len_A = strlen(ch_A);
 	len_B = strlen(ch_B);
 	max_len = len_A > len_B ? len_A : len_B;
-	min_len = len_A > len_B ? len_B : len_A;
 	
-	//reverse(ch_A, len_A);
-	//reverse(ch_B, len_B);
+	reverse(ch_A, len_A);
+	reverse(ch_B, len_B);
 	
-	for(i=0; i<max_len; i++) {
-		result[i] = ch_A[i] + ch_B[i] - '0';
+	for(i=1; i<max_len; i++) {
+		
+		value = 0;
+		
+		if( ch_A[i] != 0 || ch_B[i] != 0 ) {
+			value += ch_A[i] - '0';
+			value += ch_B[i] - '0';
+			value += up;
+			
+			if( value >= 10 ) {
+				value -= 10;
+				up = 1;
+			} else {
+				up = 0;
+			}
+		}
 	}
-	result[max_len] = NULL;
-	
 	
 	printf("%s\n", result);
 	
-	/*
-	char ch_A[100] = {0, };
-	char ch_B[100] = {0, };
-	char result[200];
-	char temp_arr[200];
+	reverse(result, strlen(result));
 	
-	int len_A, len_B, len_max;
-	int temp;
-	int add_temp = 0;
-	int count = 0;
-	int i, j;
-	
-	scanf("%s %s", ch_A, ch_B);
-	
-	len_A = strlen(ch_A);
-	len_B = strlen(ch_B);
-	
-	len_max = len_B > len_A ? len_B : len_A;
-	
-	for(i=len_max-1; i>0; i--) {
-		if(add_temp == 1)
-				temp += 1;
-		
-		if(ch_A[i] != 0 && ch_B[i] != 0) {	
-			temp = ch_A[i] + ch_B[i] - '0' - '0';
-		} else if(ch_A[i] != 0 || ch_B[i] != 0) {
-			temp = ch_A[i] + ch_B[i]; - '0';
-		} else {
-			break;
-		}
-		
-		if(temp >= 10) {
-			temp -= 10;
-			add_temp = 1;
-		}
-		
-		result[count++] = temp;
-	}
-	
-	for(i=count; i>0; i++) {
-		printf("%d", result[i]);
-	}
-	printf("\n");
-	*/
+	printf("%s\n", result);
 	return 0;
 }
