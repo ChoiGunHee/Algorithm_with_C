@@ -30,7 +30,23 @@
 #include <stdio.h>
 
 int main(void) {
-
+	int K, N;
+	int arr_k[10000];
+	int max_input_len = 0;
+	int low = 1, high;
+	int i;
+	
+	scanf("%d %d", &K, &N);
+	for(i=0; i<K; i++) {
+		scanf("%d", arr_k[i]);
+		if(arr_k[i] > max_input_len)
+			max_input_len = arr_k[i];
+	}
+	
+	
+	
+	
+	
 	
 	return 0;	
 }
