@@ -18,7 +18,7 @@
 #include <stdio.h>
 #include <string.h>
 
-int reverse(char * arr, const int len) {
+void reverse(char * arr, const int len) {
 	int i;
 	char temp;
 	
@@ -30,16 +30,16 @@ int reverse(char * arr, const int len) {
 }
 
 int main() {
-	char ch_A[100] = {0, };
-	char ch_B[100] = {0, };
-	char result[100];
+	char ch_A[10001] = {0, };
+	char ch_B[10001] = {0, };
+	char result[10002] = {0, };
 	
 	int len_A, len_B;
 	int max_len;
 	int i;
 	int value;
 	int up = 0;
-	
+
 	scanf("%s %s", ch_A, ch_B);
 	
 	len_A = strlen(ch_A);
@@ -49,25 +49,32 @@ int main() {
 	reverse(ch_A, len_A);
 	reverse(ch_B, len_B);
 	
-	for(i=1; i<max_len; i++) {
+	for(i=0; i<=max_len; i++) {
 		
 		value = 0;
 		
-		if( ch_A[i] != 0 || ch_B[i] != 0 ) {
+		if( ch_A[i] != 0 ) {
 			value += ch_A[i] - '0';
-			value += ch_B[i] - '0';
-			value += up;
-			
-			if( value >= 10 ) {
-				value -= 10;
-				up = 1;
-			} else {
-				up = 0;
-			}
 		}
+		
+		if( ch_B[i] != 0 ) {
+			value += ch_B[i] - '0';
+		}
+		
+		value += up;
+		
+		if( value >= 10 ) {
+			value -= 10;
+			up = 1;
+		} else {
+			up = 0;
+		}
+		
+		result[i] = value + '0';
 	}
 	
-	printf("%s\n", result);
+	if(result[max_len] == '0')
+		result[max_len] = 0;
 	
 	reverse(result, strlen(result));
 	
