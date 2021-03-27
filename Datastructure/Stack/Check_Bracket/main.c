@@ -3,23 +3,24 @@
 #include "Check_Matching.h"
 
 int main(void) {
-	printf("Hello World!\n in Stack!!\n");
+	char * str1 = "{ A[i+1=0] }";
+	char * str2 = "{( B[i+1=0] }";
+	char * str3 = "{ C[(i+1=0) + ([s+3]+[g+5])] }";
 	
-	StackType stack;
-	init_stack(&stack);
-	push(&stack, 1);
-	push(&stack, 2);
-	push(&stack, 3);
-	push(&stack, 4);
-	push(&stack, 5);
+	if(check_matching(str1) == 1)
+		printf("%s 괄호 검사 성공\n", str1);
+	else
+		printf("%s 괄호 검사 실패\n", str1);
 	
-	printf("%d \n", pop(&stack));
-	printf("%d \n", pop(&stack));
-	printf("%d \n", pop(&stack));
+	if(check_matching(str2) == 1)
+		printf("%s 괄호 검사 성공\n", str2);
+	else
+		printf("%s 괄호 검사 실패\n", str2);
 	
-	free(stack.data);
-	
-	Test();
+	if(check_matching(str3) == 1)
+		printf("%s 괄호 검사 성공\n", str3);
+	else
+		printf("%s 괄호 검사 실패\n", str3);
 	
 	return 0;
 }
