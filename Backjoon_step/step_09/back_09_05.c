@@ -34,3 +34,54 @@
 
  * 제한 : 1 ≤ n ≤ 123,456
 **/
+
+#include <stdio.h>
+#define MAX_ARR 246912
+
+int primeArr[MAX_ARR + 1];
+
+void eratos(int n)
+{
+	int i, j;
+	
+    if (n <= 1) return;
+
+	for (int i = 0; i <= n; i++)
+	    primeArr[i] = 1;
+
+	for (int i = 2; i * i <= n; i++)
+	{
+		if (primeArr[i])
+			for (int j = i * i; j <= n; j += i)
+			    primeArr[j] = 0;
+	}
+}
+
+int main(void) {
+	int n = 1;
+	int result = 0;
+	int i;
+	
+	
+	eratos(MAX_ARR);
+	
+	while(1) {
+		
+		scanf("%d", &n);
+		if( n == 0 ) break;
+		
+		result = 0;
+		
+		for(i=n+1; i<=2*n; i++) {
+			if(primeArr[i])
+				result++;
+		}
+		
+		printf("%d\n", result);
+	}
+		
+}
+
+
+
+
