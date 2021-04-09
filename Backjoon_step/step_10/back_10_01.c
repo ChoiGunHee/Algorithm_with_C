@@ -18,7 +18,21 @@
 **/
 
 #include <stdio.h>
+int factorial(int n) {
+	if(n == 1 || n == 0)  return 1;
+	else return n * factorial( n-1 );
+}
 
+int main(void) {
+	int n;
+	
+	scanf("%d", &n);
+	printf("%d\n", factorial(n));
+	
+	return 0;
+}
+
+/*
 int factorial(int n) {
 	int result = 1;
 	int i;
@@ -38,3 +52,4 @@ int main(void) {
 	printf("%d\n", factorial(n));
 	return 0;
 }
+*/
