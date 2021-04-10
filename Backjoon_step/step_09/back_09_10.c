@@ -27,17 +27,6 @@ D(T1,T2) = |x1-x2| + |y1-y2|
 #include <stdio.h>
 #include <math.h>
 
-double Taxi_cab() {
-	double result;
-	
-	return result; 
-}
-
-double Euclidean() {
-	double result;
-	return result;
-}
-
 int main(void) {
 	int r;
 	double euclidean_result;
