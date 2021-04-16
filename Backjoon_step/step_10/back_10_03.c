@@ -52,7 +52,6 @@ git
 **/
 
 #include <stdio.h>
-#include <math.h>
 
 void print_star(int i, int j, int n) {
 	if( (i/n)%3 == 1 && (j/n)%3 == 1 ) {
