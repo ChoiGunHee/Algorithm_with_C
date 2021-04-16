@@ -1,5 +1,6 @@
 /**
 * 2021. 04. 11
+* Solve : 2021. 04. 16
 * Creater : Gunhee Choi
 * Problem Number : 2447
 * Title : 별 찍기 - 10
@@ -53,16 +54,29 @@ git
 #include <stdio.h>
 #include <math.h>
 
-void print_star(int n) {
-	
+void print_star(int i, int j, int n) {
+	if( (i/n)%3 == 1 && (j/n)%3 == 1 ) {
+		printf(" ");
+	} else {
+		if(n/3 == 0) {
+			printf("*");
+		} else {
+			print_star(i, j, n/3);
+		}
+	}
 }
 
 int main(void) {
 	int N;
+	int i, j;
 	
 	scanf("%d", &N);
 	
-	
-	
+	for(i=0; i<N; i++) {
+		for(j=0; j<N; j++)
+			print_star(i, j, N);
+		printf("\n");
+	}
+
 	return 0;	
 }
