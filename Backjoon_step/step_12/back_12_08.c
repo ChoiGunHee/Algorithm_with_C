@@ -75,12 +75,12 @@ int main(void) {
 	char buffer[MAX_STR];
 	int t_len;
 	int flag = 0;
-	int i, j;
+	int i, j, count = 0;
 	
 	scanf("%d", &N);
 	for(i=0; i<N; i++) {
 		scanf("%s", buffer);
-		for(j=0; j<i; j++) {
+		for(j=0; j<count; j++) {
 			if(strcmp(buffer, list[j].str) == 0) {
 				flag = 1;
 				break;
@@ -91,14 +91,15 @@ int main(void) {
 			flag = 0;
 			continue;
 		} else {
-			strcpy(list[i].str, buffer);
-			list[i].len = strlen(buffer);
+			strcpy(list[count].str, buffer);
+			list[count].len = strlen(buffer);
+			count++;
 		}
 	}
 	
-	qsort(list, N, sizeof(Word), compare);
+	qsort(list, count, sizeof(Word), compare);
 	
-	for(i=0; i<N; i++)
+	for(i=0; i<count; i++)
 		printf("%s\n", list[i].str);
 	
 	return 0;	
