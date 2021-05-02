@@ -1,5 +1,5 @@
 /**
-* 2021. 04. 28
+* 2021. 05. 02
 * Creater : Gunhee Choi
 * Problem Number : 1920
 * Title : 수 찾기 
@@ -28,43 +28,60 @@ M개의 줄에 답을 출력한다. 존재하면 1을, 존재하지 않으면 0�
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <limits.h> 
+
+int compare(const void *a, const void *b)
+{
+    int num1 = *(int *)a;
+    int num2 = *(int *)b;
+
+    if (num1 < num2)
+        return -1;
+    
+    if (num1 > num2)
+        return 1;
+    
+    return 0;
+}
+
+int binary_search(int list[], int key, int low, int high) {
+	int mid;
+	
+	while (low <= high) {
+		mid = (low + high) / 2;
+		if(key == list[mid]) return mid;
+		else if(key > list[mid]) low = mid + 1;
+		else high = mid - 1;
+	}
+	
+	return -1;
+}
 
 int main(void) {
 	int N, M;
 	int * arr_N;
-	int min = INT_MAX;
-	int max = INT_MIN;
-	int i, j, temp;
+	int * arr_M;
+	int i, t;
 	int result;
 	
 	scanf("%d", &N);
 	arr_N = (int *) malloc(sizeof(int) * N);
-	for(i=0; i<N; i++) {
+	for(i=0; i<N; i++)
 		scanf("%d", &arr_N[i]);
-		
-		if(min > arr_N[i]) min = arr_N[i];
-		if(max < arr_N[i]) max = arr_N[i];
-	}
+	
+	qsort(arr_N, N, sizeof(int), compare);
+	
 	
 	scanf("%d", &M);
+	arr_M = (int *) malloc(sizeof(int) * M);
+	for(i=0; i<M; i++) {
+		scanf("%d", &t);
+		arr_M[i] = binary_search(arr_N, t, 0, N-1);
+	}
 	
 	for(i=0; i<M; i++) {
-		result = 0;
-		scanf("%d", &temp);
-		if(temp >= min)
-		
-		if(temp <= max && temp >= min) {
-			for(j=0; j<N; j++) {
-				if(temp == arr_N[j]) {
-					result = 1;
-					break;
-				}
-			}//end of j
-
-		}
-		printf("%d\n", result);
-	}// end of i
+		if(arr_M[i] == -1) printf("0\n");
+		else printf("1\n");
+	}
 	
 	return 0;	
 }
