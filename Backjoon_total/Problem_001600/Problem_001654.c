@@ -38,15 +38,12 @@ int main(void) {
 	
 	scanf("%d %d", &K, &N);
 	for(i=0; i<K; i++) {
-		scanf("%d", arr_k[i]);
+		scanf("%d", &arr_k[i]);
 		if(arr_k[i] > max_input_len)
 			max_input_len = arr_k[i];
 	}
 	
-	
-	
-	
-	
+	printf("max : %d\n", max_input_len);
 	
 	return 0;	
 }
