@@ -1,3 +1,3 @@
 #!/bin/bash
 
-./a.out < case_001654.txt
+./a.out < case_001654_1.txt
