@@ -28,32 +28,28 @@
 
 #include <stdio.h>
 
-long long factorial(int n) {
-	int i;
-	long long result = 1;
-	
-	for(i=1; i<=n; i++)
-		result += n;
-	
-	return result;
-}
+long long memo[31][31];
 
 int main(void) {
 	int T;
-	long long N, M;
-	long long result;
+	int N, M;
 	int i, j;
-		
+	
+	for(i=0; i<31; i++) {
+		memo[i][i] = 1;
+		memo[i][0] = 1;
+	}
+	
+	for(i=2; i<31; i++) {
+		for(j=1; j<31; j++) {
+			memo[i][j] = memo[i-1][j-1] + memo[i-1][j];
+		}
+	}
+	
 	scanf("%d", &T);
 	for(i=0; i<T; i++) {
-		scanf("%lld %lld", &N, &M);
-		
-		if( N > M/2)
-			N = M - N;
-		
-		result = factorial(N) / factorial(M) * factorial(M-N);
-
-		printf("%lld\n", result);
+		scanf("%d %d", &N, &M);
+		printf("%lld\n", memo[M][N]);
 	}
 	
 	return 0;	
