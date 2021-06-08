@@ -39,46 +39,6 @@
 #include <stdlib.h>
 
 int main(void) {
-	int N, M;
-	int arr[100] = {0, };
-	int test_case_count;
-	int i, j, t, m;
-	int sum_arr[10] = {0, };
-	int target;
-	int result = 0;
-	
-	scanf("%d", &test_case_count);
-	for(i=0; i<test_case_count; i++) {
-		scanf("%d %d", &N, &M);
-		
-		//init
-		for(m=0; m<100; m++) arr[m] = 0;
-		for(m=0; m<10; m++) sum_arr[m] = 0;
-		result = 0;
-		
-		for(j=0; j<N; j++) {
-			scanf("%d", &t);
-			sum_arr[t]++;
-			arr[j] = t;
-		}
-		
-		printf("arr : ");
-		for(m=0; m<10; m++)
-			printf("%d ", arr[m]);
-		printf("\n");
-		
-		printf("sum_ arr : ");
-		for(m=0; m<10; m++)
-			printf("%d ", sum_arr[m]);
-		printf("\n");
-		
-		target = arr[M];
-		printf("Target : %d\n", target);
-		for(j=9; j>=target; j--)
-			result += sum_arr[j];
-		
-		printf("result : %d\n", result);
-	}
 	
 	return 0;	
 }
