@@ -30,20 +30,40 @@
 #include <stdio.h>
 
 int main(void) {
-	int K, N;
-	int arr_k[10000];
-	int max_input_len = 0;
-	int low = 1, high;
-	int i;
+	long long K, N;
+	long long arr_k[10001] = {0, };
+	long long max_input_len = 0;
+	long long low = 1, high, mid;
+	long long sum_n;
+	long long result = 0;
+	long long i;
 	
-	scanf("%d %d", &K, &N);
+	scanf("%lld %lld", &K, &N);
 	for(i=0; i<K; i++) {
-		scanf("%d", &arr_k[i]);
+		scanf("%lld", &arr_k[i]);
 		if(arr_k[i] > max_input_len)
 			max_input_len = arr_k[i];
 	}
 	
-	printf("max : %d\n", max_input_len);
+	high = max_input_len;
+	
+	while(low <= high) {
+		mid = (high + low) / 2;
+		sum_n = 0;
+		for(i=0; i<K; i++) {
+			sum_n += arr_k[i]/mid;
+		}
+		
+		if( sum_n >= N) {
+			low = mid + 1;
+			if( result < mid)
+				result = mid;
+		} else {
+			high = mid - 1;
+		}
+	}
+	
+	printf("%lld\n", result);
 	
 	return 0;	
 }
