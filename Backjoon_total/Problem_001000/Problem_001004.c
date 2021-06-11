@@ -45,21 +45,30 @@ int main(void) {
 	int test_case;
 	int x1, x2, y1, y2;
 	int planets_count;
-	int planets_x[51];
-	int planets_y[51];
-	int planets_r[51];
+	int planets_x;
+	int planets_y;
+	int planets_r;
+	int dis1, dis2, r_2;
+	int count;
 	int i, j;
 	
 	scanf("%d", &test_case);
 	for(i=0; i<test_case; i++) {
 		scanf("%d %d %d %d", &x1, &y1, &x2, &y2);
 		scanf("%d", &planets_count);
+		
+		count = 0;
 		for(j=0; j<planets_count; j++) {
-			scanf("%d %d %d", &planets_x[j], &planets_y[j], &planets_r[j]);
+			scanf("%d %d %d", &planets_x, &planets_y, &planets_r);
+			
+			dis1 = pow(x1-planets_x, 2) + pow(y1-planets_y, 2);
+			dis2 = pow(x2-planets_x, 2) + pow(y2-planets_y, 2);
+			r_2 = planets_r * planets_r;
+			if( (dis1 > r_2) && (dis2 < r_2) ) count++;
+			if( (dis1 < r_2) && (dis2 > r_2) ) count++;
 		}
 		
-		
-		
+		printf("%d\n", count);	
 	}
 	
 	return 0;	
