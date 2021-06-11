@@ -44,8 +44,91 @@
 **/
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+typedef char datatype;
+
+typedef struct {
+	datatype * data;
+	int capacity;
+	int top;
+} StackType;
+
+void init_stack(StackType * stack) {
+	stack->top = -1;
+	stack->capacity = 1;
+	stack->data = (char *) malloc(stack->capacity * sizeof(int));
+}
+
+int is_full(StackType * stack) {
+	return (stack->top == (stack->capacity - 1));
+}
+
+int is_empty(StackType * stack) {
+	return (stack->top == -1);
+}
+
+void push(StackType * stack, char data) {
+	if(is_full(stack)) {
+		stack->capacity *= 2;
+		stack->data = (char * ) realloc(stack->data, stack->capacity * sizeof(int));
+	}
+	
+	stack->data[++(stack->top)] = data;
+}
+
+int pop(StackType * stack) {
+	if(is_empty(stack)) {
+		printf("스택 에러, 공백!\n");
+	} else {
+		return stack->data[(stack->top)--];
+	}
+}
+
+int check_matching(const char * input) {
+	StackType s;
+	char ch, open_ch;
+	int i, n = strlen(input);
+	init_stack(&s);
+	
+	for(i=0; i<n; i++) {
+		ch = input[i];
+		switch (ch) {
+			case '(' :
+			case '[' :
+			case '{' :
+				push(&s, ch);
+				break;
+			case ')' :
+			case ']' :
+			case '}' :
+				if(is_empty(&s)) return 0;
+				else {
+					open_ch = pop(&s);
+					if( (open_ch == '(' && ch != ')') ||
+					  	(open_ch == '[' && ch != ']') ||
+					    (open_ch == '{' && ch != '}') ) {
+						return 0;
+					}//if
+				break;
+				}//else
+		}//switch
+	}//for
+	
+	if( !is_empty(&s) ) return 0;
+	return 1;
+}
 
 int main(void) {
+	char p_str[201];
 	
+	while(1) {
+		fgets(p_str, 200, stdin);
+		if(p_str[0] == '.') break;
+		if(check_matching(p_str)) printf("yes\n");
+		else printf("no\n");
+	}
+
 	return 0;	
 }
