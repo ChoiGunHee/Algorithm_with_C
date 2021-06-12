@@ -28,7 +28,33 @@
 
 #include <stdio.h>
 
+long long factorial(int n) {
+	int i;
+	long long result = 1;
+	
+	for(i=1; i<=n; i++)
+		result += n;
+	
+	return result;
+}
+
 int main(void) {
+	int T;
+	long long N, M;
+	long long result;
+	int i, j;
+		
+	scanf("%d", &T);
+	for(i=0; i<T; i++) {
+		scanf("%lld %lld", &N, &M);
+		
+		if( N > M/2)
+			N = M - N;
+		
+		result = factorial(N) / factorial(M) * factorial(M-N);
+
+		printf("%lld\n", result);
+	}
 	
 	return 0;	
 }
