@@ -45,9 +45,107 @@
 **/
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define MAX_SIZE 100000
+
+typedef int datatype;
+
+typedef struct {
+	datatype * data;
+	int capacity;
+	int top;
+} StackType;
+
+void init_stack(StackType * stack, int size) {
+	stack->top = -1;
+	stack->capacity = size;
+	stack->data = (int *) malloc(stack->capacity * sizeof(int));
+}
+
+int is_full(StackType * stack) {
+	return (stack->top == (stack->capacity - 1));
+}
+
+int is_empty(StackType * stack) {
+	if( stack->top == -1 ) return 1;
+	else return 0;
+}
+
+int push(StackType * stack, int data) {
+	if(is_full(stack)) {
+		stack->capacity *= 2;
+		stack->data = (int * ) realloc(stack->data, stack->capacity * sizeof(int));
+	}
+	
+	stack->data[++(stack->top)] = data;
+}
+
+int pop(StackType * stack) {
+	if(is_empty(stack) == 1) {
+		return -1;
+	} else {
+		return stack->data[(stack->top)--];
+	}
+}
+
+int peek(StackType * stack) {
+	if(stack->top == -1) return -1;
+	else return stack->data[stack->top];
+}
+
+int size(StackType * stack) {
+	if(stack->top == -1) return 0;
+	else return stack->top + 1;
+}
 
 int main(void) {
-
+	int n;
+	int * p_list;
+	char * results;
+	StackType s;
+	init_stack(&s, MAX_SIZE);
+	int value_count = 0;
+	int count = 1;
+	int result_count = 0;
+	int i;
+	
+	scanf("%d", &n);
+	p_list = (int *) malloc(sizeof(int) * MAX_SIZE);
+	results = (char *) malloc(sizeof(char) * MAX_SIZE * 2);
+	
+	for(i=1; i<=n; i++)
+		scanf("%d", &p_list[i]);
+	
+	
+	
+	
+	
+	while(1) {
+		
+		if (count == n * 2) break;
+		
+		if(s.top == -1 || p_list[value_count] > count) {
+			push(&s, count);
+			count++;
+			value_count++;
+			results[result_count++] = '+';
+		} else if( p_list[value_count] == peek(&s) ) {
+			pop(&s);
+			count++;
+			results[result_count++] = '-';
+		} else {
+			printf("NO\n");
+			return 0;
+		}
+		
+		
+	}
+	
+	for(i=0; i<n*2; i++) {
+		printf("%c\n", results[i]);
+	}
 	
 	return 0;	
 }
