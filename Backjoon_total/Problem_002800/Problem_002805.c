@@ -27,8 +27,45 @@
 **/
 
 #include <stdio.h>
+#include <stdlib.h>
 
 int main(void) {
+	long long N, M;
+	long long * arr;
+	long long high = 1;
+	long long low = 0;
+	long long mid;
+	long long sum;
+	long long result = 0;
+	int i;
+	
+	scanf("%lld %lld", &N, &M);
+	
+	arr = (long long *) malloc(sizeof(long long) * N);
+	for(i=0; i<N; i++) {
+		scanf("%lld", &arr[i]);
+		if(high < arr[i]) high = arr[i];
+	}
+		
+	while(low <= high) {
+		mid = (low + high)/2;
+		sum = 0;
+		
+		for(i=0; i<N; i++) {
+			if( (arr[i] > mid))
+				sum += arr[i] - mid;
+		}
+		
+		if(sum >= M) {
+			if (result < mid)
+                result = mid;
+			low = mid + 1;
+		} else {
+			high = mid - 1;
+		}
+	}
+	
+	printf("%lld\n", result);
 	
 	return 0;
 }
