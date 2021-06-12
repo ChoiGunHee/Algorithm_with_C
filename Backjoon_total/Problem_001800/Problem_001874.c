@@ -102,49 +102,44 @@ int size(StackType * stack) {
 
 int main(void) {
 	int n;
-	int * p_list;
 	char * results;
+	int * arr;
+	int t;
+	int count = 0;
+	int arr_count = 0;
 	StackType s;
 	init_stack(&s, MAX_SIZE);
-	int value_count = 0;
-	int count = 1;
-	int result_count = 0;
+
 	int i;
 	
 	scanf("%d", &n);
-	p_list = (int *) malloc(sizeof(int) * MAX_SIZE);
-	results = (char *) malloc(sizeof(char) * MAX_SIZE * 2);
+	results = (char *) malloc(sizeof(char) * n * 2);
+	arr = (int *) malloc(sizeof(int) * n);
 	
-	for(i=1; i<=n; i++)
-		scanf("%d", &p_list[i]);
+	for(i=0; i<n; i++)
+		scanf("%d", &arr[i]);
 	
-	
-	
-	
-	
-	while(1) {
+	for(i=1; i<=n; i++) {
+		push(&s, i);
+		results[count++] = '+';
 		
-		if (count == n * 2) break;
-		
-		if(s.top == -1 || p_list[value_count] > count) {
-			push(&s, count);
-			count++;
-			value_count++;
-			results[result_count++] = '+';
-		} else if( p_list[value_count] == peek(&s) ) {
-			pop(&s);
-			count++;
-			results[result_count++] = '-';
-		} else {
-			printf("NO\n");
-			return 0;
+		while(1) {
+			//printf("peek : %d\n", peek(&s));
+			if(!is_empty(&s) && arr[arr_count] == peek(&s)) {
+				pop(&s);
+				results[count++] = '-';
+				arr_count++;
+			} else {
+				break;
+			}
 		}
-		
-		
 	}
 	
-	for(i=0; i<n*2; i++) {
-		printf("%c\n", results[i]);
+	if(is_empty(&s)) {
+		for(i=0; i<n*2; i++)
+			printf("%c\n", results[i]);
+	} else {
+		printf("NO\n");
 	}
 	
 	return 0;	
