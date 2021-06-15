@@ -27,3 +27,21 @@ n이 주어졌을 때, n번째 피보나치 수를 구하는 프로그램을 작
 
 **/
 
+#include <stdio.h>
+
+int main(void) {
+	int n;
+	int arr[25];
+	int i;
+	
+	arr[0] = 0;
+	arr[1] = 1;
+	
+	for(i=2; i<21; i++)
+		arr[i] = arr[i-2] + arr[i-1];
+	
+	scanf("%d", &n);
+	printf("%d\n", arr[n]);
+	
+	return 0;
+}
