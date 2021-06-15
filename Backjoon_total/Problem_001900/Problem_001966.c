@@ -37,8 +37,110 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#define MAX_ELEMENT 101
+
+typedef struct {
+	int key;
+	int index;
+} element;
+
+typedef struct {
+	element heap[MAX_ELEMENT];
+	int heap_size;
+} HeapType;
+
+HeapType * create() {
+	return (HeapType * ) malloc(sizeof(HeapType));
+}
+
+void init(HeapType * h) {
+	int i;
+	h->heap_size = 0;
+	for(i=0; i<MAX_ELEMENT; i++) {
+		h->heap[i].key = 0;
+		h->heap[i].index = 0;
+	}
+}
+
+void insert_max_heap(HeapType * h, element item) {
+	int i;
+	i = ++(h->heap_size);
+
+	while( (i != 1) && (item.key > h->heap[i/2].key) ) {
+		h->heap[i] = h->heap[i/2];
+		i /= 2;
+	}
+	h->heap[i] = item;
+}
+
+element delete_max_heap(HeapType * h) {
+	int parent, child;
+	element item, temp;
+	
+	item = h->heap[1];
+	temp = h->heap[(h->heap_size)--];
+	parent = 1;
+	child = 2;
+	
+	while(child <= h->heap_size) {
+		if( (child < h->heap_size) && (h->heap[child].key < h->heap[child + 1].key))
+			child++;
+		
+		if(temp.key >= h->heap[child].key) break;
+		
+		h->heap[parent] = h->heap[child];
+		parent = child;
+		child *= 2;
+	}
+	
+	h->heap[parent] = temp;
+	return item;
+}
+
 
 int main(void) {
+	int T;
+	int N, M;
+	element arr[MAX_ELEMENT];
+	HeapType * heap;
+	int temp;
+	int count;
+	int i;
+	element temp_e;
 	
-	return 0;	
+	scanf("%d", &T);
+	
+	heap = create();
+	init(heap);
+	
+	while(T--) {
+		//init
+		init(heap);
+		count = 0;
+		
+		scanf("%d %d", &N, &M);
+		for(i=0; i<N; i++) {
+			scanf("%d", &temp);
+			arr[i].key = temp;
+			arr[i].index = i;
+			insert_max_heap(heap, arr[i]);
+		}
+		
+		//for(i=1; i<=N; i++)
+			//printf("key : %d, index : %d\n", heap->heap[i].key, heap->heap[i].index);
+		
+		for(i=1; i<=N; i++) {
+			temp_e = delete_max_heap(heap);
+			printf("t key : %d, tindex : %d\n", temp_e.key, temp_e.index);
+			count++;
+			if(temp_e.index == arr[M].index && temp_e.key == arr[M].key) {
+				break;
+			}
+		}
+		
+		printf("%d\n", count);
+		
+	}
+	
+	return 0;
 }
