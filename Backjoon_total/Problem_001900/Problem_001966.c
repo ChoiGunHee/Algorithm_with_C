@@ -99,48 +99,6 @@ element delete_max_heap(HeapType * h) {
 
 
 int main(void) {
-	int T;
-	int N, M;
-	element arr[MAX_ELEMENT];
-	HeapType * heap;
-	int temp;
-	int count;
-	int i;
-	element temp_e;
-	
-	scanf("%d", &T);
-	
-	heap = create();
-	init(heap);
-	
-	while(T--) {
-		//init
-		init(heap);
-		count = 0;
-		
-		scanf("%d %d", &N, &M);
-		for(i=0; i<N; i++) {
-			scanf("%d", &temp);
-			arr[i].key = temp;
-			arr[i].index = i;
-			insert_max_heap(heap, arr[i]);
-		}
-		
-		//for(i=1; i<=N; i++)
-			//printf("key : %d, index : %d\n", heap->heap[i].key, heap->heap[i].index);
-		
-		for(i=1; i<=N; i++) {
-			temp_e = delete_max_heap(heap);
-			printf("t key : %d, tindex : %d\n", temp_e.key, temp_e.index);
-			count++;
-			if(temp_e.index == arr[M].index && temp_e.key == arr[M].key) {
-				break;
-			}
-		}
-		
-		printf("%d\n", count);
-		
-	}
 	
 	return 0;
 }
