@@ -26,8 +26,36 @@
 **/
 
 #include <stdio.h>
+#define MAX_NUM 9
+
+int N, M;
+int arr[MAX_NUM];
+int visited[MAX_NUM];
+
+void dfs(int idx, int count) {
+	int i;
+	
+	if(count == M) {
+		for(i=0; i<M; i++)
+			printf("%d ", arr[i]);
+		printf("\n");
+		return;
+	}
+	
+	for(i=idx; i<=N; i++) {
+		if(!visited[i]) {
+			visited[i] = 1;
+			arr[count] = i;
+			dfs(i+1, count+1);
+			visited[i] = 0;
+		}
+	}
+}
 
 int main(void) {
+	scanf("%d %d", &N, &M);
+	
+	dfs(1,0);
 	
 	return 0;	
 }
