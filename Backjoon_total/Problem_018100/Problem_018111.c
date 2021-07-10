@@ -39,7 +39,7 @@ lvalue는 세로 N, 가로 M 크기의 집터를 골랐다. 집터 맨 왼쪽 �
 #include <stdlib.h>
 
 #define MAX_HIGH 256
-#define MAX_TIME 500 * 500 * 256 + 1
+#define MAX_TIME 500 * 500 * 256 * 2 + 1;
 
 int main(void) {
 	int N, M, B;
@@ -48,14 +48,11 @@ int main(void) {
 	int remove_block;
 	int input_block;
 	
-	int remove_time;
-	int input_time;
 	int temp_time = MAX_TIME;
 	
 	int result_time = MAX_TIME;
 	int result_high = -1;
 	
-	int input_max_high = -1;
 	int temp_high;
 	
 	int i, j;
@@ -66,39 +63,29 @@ int main(void) {
 	for(i=0; i<N; i++) {
 		for(j=0; j<M; j++) {
 			scanf("%d", &ground[i][j]);
-			if(input_max_high<ground[i][j])
-				input_max_high = ground[i][j];
 		}
 	}
 	
-	for(high=0; high<MAX_HIGH; high++) {
+	for(high=MAX_HIGH; high>=0; high--) {
 		remove_block = 0;
 		input_block = 0;
 		
 		for(i=0; i<N; i++) {
 			for(j=0; j<M; j++) {
 				temp_high = ground[i][j] - high;
-				if(temp_high >= 0) remove_block += temp_high;
+				if(temp_high > 0) remove_block += temp_high;
 				else input_block -= temp_high;
 			}
 		}
-		printf("remove : %d, input : %d\n", remove_block, input_block);
 		
-		
-		
-		input_time = input_block;
-		remove_time = remove_block * 2;
-		
-		if( input_block > B) input_time = MAX_TIME;
-		if(remove_time < input_time) temp_time = remove_time;
-		else temp_time = input_time;
-		
-		if(result_time >= temp_time) {
-			result_time = temp_time;
-			result_high = high;
-		} 
-		
-		printf("hige %d : %d %d\n", high, result_time, result_high);
+		if( remove_block + B >= input_block) {
+			temp_time = remove_block * 2 + input_block;
+			
+			if(result_time > temp_time) {
+				result_time = temp_time;
+				result_high = high;
+			}
+		}
 		
 	}
 	
