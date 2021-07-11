@@ -25,7 +25,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define MAX_SIZE 100000
+#define MAX_SIZE 1000000
 
 typedef int datatype;
 
@@ -78,6 +78,29 @@ int size(StackType * stack) {
 }
 
 int main(void) {
+	StackType s;
+	int N;
+	int * arr;
+	int i, j;
+	int temp;
+	int max = -1;
+	
+	init_stack(&s, MAX_SIZE);
+	
+	scanf("%d", &N);
+	arr = (int *) malloc(sizeof(int) * N);
+	
+	for(i=0; i<N; i++) {
+		scanf("%d", temp);
+		s.push(&s, temp);
+	}
+		
+	while(1) {
+			
+	}
+	
+	
+	
 	
 	return 0;	
 }
