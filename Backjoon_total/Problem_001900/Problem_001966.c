@@ -98,7 +98,29 @@ element delete_max_heap(HeapType * h) {
 }
 
 
+
+
 int main(void) {
 	
+	element e1 = {10}, e2 = {5}, e3 = {30};
+	element e4, e5, e6;
+	
+	HeapType * heap;
+	
+	heap = create();
+	init(heap);
+	
+	insert_max_heap(heap, e1);
+	insert_max_heap(heap, e2);
+	insert_max_heap(heap, e3);
+	
+	e4 = delete_max_heap(heap);
+	printf("%d\n", e4.key);
+	e5 = delete_max_heap(heap);
+	printf("%d\n", e5.key);
+	e6 = delete_max_heap(heap);
+	printf("%d\n", e6.key);
+	
+	free(heap);
 	return 0;
 }
