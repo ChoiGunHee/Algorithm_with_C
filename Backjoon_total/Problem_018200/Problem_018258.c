@@ -63,11 +63,13 @@ typedef struct {
 	int front;
 	int rear;
 	int data[MAX_QUEUE_SIZE];
+	int size;
 } QueueType;
 
 void init_queue(QueueType * queue) {
 	queue->rear = -1;
 	queue->front = -1;
+	queue->size = 0;
 }
 
 int is_full(QueueType * queue) {
@@ -90,6 +92,7 @@ int enqueue(QueueType * queue, int data) {
 		return -1;
 	}
 	
+	queue->size++;
 	queue->data[++(queue->rear)] = data;
 	return 0;
 }
@@ -101,6 +104,7 @@ int dequeue(QueueType * queue) {
 		return -1;
 	}
 	
+	queue->size--;
 	data = queue->data[++(queue->front)];
 	return data;
 }
@@ -117,11 +121,21 @@ void print_queue(QueueType * queue) {
 	printf("\n");
 }
 
+int get_size(QueueType * queue) {
+	return queue->size;
+}
+
+int get_front(QueueType * queue) {
+	return queue->data[queue->front];
+}
+
+int get_back(QueueType * queue) {
+	return queue->data[queue->rear];
+}
+
 int main(void) {
-	int data = 0;
+	int data;
 	QueueType q;
-	
-	printf("Hello World!\n in Queue!!\n");
 	
 	init_queue(&q);
 	
@@ -130,10 +144,12 @@ int main(void) {
 	enqueue(&q, 30);
 	print_queue(&q);
 	
+	printf("%d\n", get_front(&q));
+	printf("%d\n", get_back(&q));
+	
 	data = dequeue(&q);
 	data = dequeue(&q);
 	print_queue(&q);
 	
-	return 0;
 	return 0;
 }
