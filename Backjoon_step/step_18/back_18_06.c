@@ -2,7 +2,7 @@
 * 2021. 07. 11
 * Creater : Gunhee Choi
 * Problem Number : 17298
-* Title : 스택 수열
+* Title : 오큰수
 
 * Problem :
 크기가 N인 수열 A = A1, A2, ..., AN이 있다. 수열의 각 원소 Ai에 대해서 오큰수 NGE(i)를 구하려고 한다. Ai의 오큰수는 오른쪽에 있으면서 Ai보다 큰 수 중에서 가장 왼쪽에 있는 수를 의미한다. 그러한 수가 없는 경우에 오큰수는 -1이다.
@@ -79,6 +79,8 @@ int size(StackType * stack) {
 
 int main(void) {
 	StackType s;
+	StackType s_temp;
+	
 	int N;
 	int * arr;
 	int i, j;
@@ -86,21 +88,43 @@ int main(void) {
 	int max = -1;
 	
 	init_stack(&s, MAX_SIZE);
+	init_stack(&s_temp, MAX_SIZE);
 	
 	scanf("%d", &N);
 	arr = (int *) malloc(sizeof(int) * N);
 	
 	for(i=0; i<N; i++) {
-		scanf("%d", temp);
-		s.push(&s, temp);
+		scanf("%d", &temp);
+		push(&s, temp);
 	}
+	
+	for(i=0; i<N; i++)
+		arr[i] = -1;
+	
+	for(i=N-1; i>=0; i--) {
+		temp = pop(&s);
 		
-	while(1) {
+		while(1) {
+			if(is_empty(&s_temp)) {
+				push(&s_temp, temp);
+				break;
+			}
 			
+			if(temp < peek(&s_temp)) {
+				arr[i] = peek(&s_temp);
+				push(&s_temp, temp);
+				break;
+			}
+			
+			pop(&s_temp);
+		}
 	}
 	
+	for(i=0; i<N; i++) {
+		printf("%d ", arr[i]);
+	}
 	
-	
+	printf("\n");
 	
 	return 0;	
 }
