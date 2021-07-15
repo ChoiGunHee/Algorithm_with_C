@@ -97,9 +97,6 @@ element delete_max_heap(HeapType * h) {
 	return item;
 }
 
-
-
-
 int main(void) {
 	
 	element e1 = {10}, e2 = {5}, e3 = {30};
