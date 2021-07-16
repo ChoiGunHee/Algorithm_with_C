@@ -69,7 +69,7 @@ typedef struct {
 void init_queue(QueueType * queue) {
 	queue->rear = -1;
 	queue->front = -1;
-	queue->size = 0;
+	queue->size = -1;
 }
 
 int is_full(QueueType * queue) {
@@ -112,7 +112,7 @@ int dequeue(QueueType * queue) {
 void print_queue(QueueType * queue) {
 	int i;
 	
-	for(i=0; i<MAX_QUEUE_SIZE; i++) {
+	for(i=0; i<queue->size; i++) {
 		if(i <= queue->front || i> queue->rear)
 			printf("  |  ");
 		else
@@ -126,7 +126,7 @@ int get_size(QueueType * queue) {
 }
 
 int get_front(QueueType * queue) {
-	return queue->data[queue->front];
+	return queue->data[queue->front + 1];
 }
 
 int get_back(QueueType * queue) {
