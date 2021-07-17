@@ -56,6 +56,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+
 #define MAX_QUEUE_SIZE 2000000
 #define MAX_STRING 100
 
@@ -69,7 +71,7 @@ typedef struct {
 void init_queue(QueueType * queue) {
 	queue->rear = -1;
 	queue->front = -1;
-	queue->size = -1;
+	queue->size = 0;
 }
 
 int is_full(QueueType * queue) {
@@ -87,10 +89,7 @@ int is_empty(QueueType * queue) {
 }
 
 int enqueue(QueueType * queue, int data) {
-	if( is_full(queue) ) {
-		printf("Queue is Full\n");
-		return -1;
-	}
+	if( is_full(queue) ) return -1;
 	
 	queue->size++;
 	queue->data[++(queue->rear)] = data;
@@ -112,13 +111,9 @@ int dequeue(QueueType * queue) {
 void print_queue(QueueType * queue) {
 	int i;
 	
-	for(i=0; i<queue->size; i++) {
-		if(i <= queue->front || i> queue->rear)
-			printf("  |  ");
-		else
-			printf("%d | ", queue->data[i]);
+	for(i=queue->front+1; i<queue->rear+1; i++) {
+		printf("%d\n", queue->data[i]);
 	}
-	printf("\n");
 }
 
 int get_size(QueueType * queue) {
@@ -126,30 +121,43 @@ int get_size(QueueType * queue) {
 }
 
 int get_front(QueueType * queue) {
+	if( is_empty(queue) ) return -1;
 	return queue->data[queue->front + 1];
 }
 
 int get_back(QueueType * queue) {
+	if( is_empty(queue) ) return -1;
 	return queue->data[queue->rear];
 }
 
 int main(void) {
-	int data;
-	QueueType q;
+	int n;
+	char p_str[10];
+	int temp;
+	int i;
 	
+	QueueType q;
 	init_queue(&q);
 	
-	enqueue(&q, 10);
-	enqueue(&q, 20);
-	enqueue(&q, 30);
-	print_queue(&q);
-	
-	printf("%d\n", get_front(&q));
-	printf("%d\n", get_back(&q));
-	
-	data = dequeue(&q);
-	data = dequeue(&q);
-	print_queue(&q);
+	scanf("%d", &n);
+	for(i=0; i<n; i++) {
+		scanf("%s", p_str);
+		
+		if( strcmp("push", p_str) == 0 ) {
+			scanf("%d", &temp);
+			enqueue(&q, temp);
+		} else if( strcmp("pop", p_str) == 0) {
+			printf("%d\n", dequeue(&q));
+		} else if( strcmp("size", p_str) == 0) {
+			printf("%d\n", get_size(&q));
+		} else if( strcmp("empty", p_str) == 0) {
+			printf("%d\n", is_empty(&q));
+		} else if( strcmp("front", p_str) == 0 ) {
+			printf("%d\n", get_front(&q));
+		} else if( strcmp("back", p_str) == 0) {
+			printf("%d\n", get_back(&q));
+		}
+	}
 	
 	return 0;
 }
