@@ -37,9 +37,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#define MAX_ELEMENT 101
+#define MAX_ELEMENT 200
 #define MAX_QUEUE_SIZE 200
-#define MAX_STRING 100
 
 typedef struct {
 	int key;
@@ -47,16 +46,15 @@ typedef struct {
 } element;
 
 typedef struct {
-	int front;
-	int rear;
-	element data[MAX_QUEUE_SIZE];
-	int size;
-} QueueType;
-
-typedef struct {
 	element heap[MAX_ELEMENT];
 	int heap_size;
 } HeapType;
+
+typedef struct {
+	int front;
+	int rear;
+	int data[MAX_QUEUE_SIZE];
+} QueueType;
 
 HeapType * create() {
 	return (HeapType * ) malloc(sizeof(HeapType));
@@ -64,6 +62,7 @@ HeapType * create() {
 
 void init(HeapType * h) {
 	int i;
+	
 	h->heap_size = 0;
 	for(i=0; i<MAX_ELEMENT; i++) {
 		h->heap[i].key = 0;
@@ -106,12 +105,9 @@ element delete_max_heap(HeapType * h) {
 	return item;
 }
 
-
-//Queue
 void init_queue(QueueType * queue) {
 	queue->rear = -1;
 	queue->front = -1;
-	queue->size = 0;
 }
 
 int is_full(QueueType * queue) {
@@ -128,96 +124,76 @@ int is_empty(QueueType * queue) {
 	return 0;
 }
 
-int enqueue(QueueType * queue, element data) {
-	if( is_full(queue) ) return -1;
+int enqueue(QueueType * queue, int data) {
+	if( is_full(queue) ) {
+		return -1;
+	}
 	
-	queue->size++;
-	queue->data[++(queue->rear)].key = data.key;
-	queue->data[++(queue->rear)].index = data.index;
+	queue->data[++(queue->rear)] = data;
 	return 0;
 }
 
-element dequeue(QueueType * queue) {
-	element data;
+int dequeue(QueueType * queue) {
+	int data;
 	
 	if( is_empty(queue) ) {
-		return data;
+		return -1;
 	}
 	
-	queue->size--;
-	data.key = queue->data[++(queue->front)].key;
-	data.index = queue->data[++(queue->front)].index;
+	data = queue->data[++(queue->front)];
 	return data;
-}
-
-void print_queue(QueueType * queue) {
-	int i;
-	
-	for(i=queue->front+1; i<queue->rear+1; i++) {
-		printf("%d\n", queue->data[i].key);
-	}
-}
-
-int get_size(QueueType * queue) {
-	return queue->size;
 }
 
 int main(void) {
 	int T;
 	int N, M;
-	int i, j;
+	int t, i;
 	int temp;
 	element t_e;
-	element t_e2;
-	element goal_e;
-	int count;
-	
 	HeapType * heap;
 	QueueType q;
+	int count;
 	
-	init(heap);
-	init_queue(&q);
+	heap = create();
 	
 	scanf("%d", &T);
 	
-	for(i=0; i<T; i++) {
+	for(t=0; t<T; t++) {
 		scanf("%d %d", &N, &M);
-		for(j=0; j<N; j++) {
-			scanf("%d", &temp);
-			t_e.key = temp;
-			t_e.index = j;
-			insert_max_heap(heap, t_e);
-			
-			enqueue(&q, t_e);
-			
-			if(j == M) {
-				goal_e.key = temp;
-				goal_e.index = j;
-			}
-		}
 		
+		init(heap);
+		init_queue(&q);
 		count = 0;
 		
-		while( N != 0 ) {
+		for(i=0; i<N; i++) {
+			scanf("%d", &temp);
+			t_e.key = temp;
+			t_e.index = i;
+			
+			insert_max_heap(heap, t_e);
+			enqueue(&q, i);
+		}
+		
+		while(heap->heap_size != 0) {
 			t_e = delete_max_heap(heap);
 			
 			while(1) {
-				t_e2 = dequeue(&q);
-				count++;
-				if(t_e.key == t_e2.key && t_e.index == t_e2.index)
+				temp = dequeue(&q);
+				if(t_e.index != temp) {
+					enqueue(&q, temp);
+				} else {
+					count++;
 					break;
-				
-				enqueue(&q, t_e2);
+				}
 			}
 			
-			
-			N--;
+			if(t_e.index == M)
+				break;
+
 		}
 		
 		printf("%d\n", count);
 	}
-	
-	free(heap);
 	
 	return 0;
 }
