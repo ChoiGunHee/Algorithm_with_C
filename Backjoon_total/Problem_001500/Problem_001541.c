@@ -29,66 +29,36 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <math.h>
-
-int check_number(char c) {
-	int result;
-	
-	switch (c) {
-		case '1' :
-		case '2' :
-		case '3' :
-		case '4' :
-		case '5' :
-		case '6' :
-		case '7' :
-		case '8' :
-		case '9' :
-			result = c - '0';
-			break;
-		default :
-			result = -1;
-			break;
-	}
-	
-	return result;	
-}
 
 int main(void) {
 	char str[51];
 	int len;
 	int i, j;
 	int count = 0;
-	int tmp_number[5];
-	int tmp_sum = 0;
+	char tmp_number[6];
 	int tmp;
 	int result = 0;
+	int m_flag = 1;			//1=='+', -1=='-'
 	
 	scanf("%s", str);
 	len = strlen(str);
 	
 	for(i=0; i<len; i++) {
-		tmp = check_number(str[i]);
-		
-		if(tmp != -1) {
-			tmp_number[count] = tmp;
+		if(str[i]>='0' && str[i]<='9') {
+			tmp_number[count] = str[i];
 			count++;
 		} else {
-			tmp = count;
-			for(j=0; j<count; j++) {
-				tmp_sum = pow(10, tmp+1) * tmp_number[j];
-				tmp--;
-			}
-			
-			if(str[i] == '+')
-				result += tmp_sum;
-			else
-				result -= tmp_sum;
+			tmp_number[count] = '\0';
+			result += m_flag * atoi(tmp_number);
+			count = 0;
 		}
 		
-		
+		if(str[i] == '-')
+			m_flag = -1;
 	}
 	
+	tmp_number[count] = '\0';
+	result += m_flag * atoi(tmp_number);
 	printf("%d\n", result);
 	
 	return 0;
