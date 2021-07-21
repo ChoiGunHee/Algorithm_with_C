@@ -29,6 +29,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 
 int check_number(char c) {
 	int result;
@@ -56,18 +57,39 @@ int check_number(char c) {
 int main(void) {
 	char str[51];
 	int len;
-	int i;
+	int i, j;
+	int count = 0;
+	int tmp_number[5];
+	int tmp_sum = 0;
+	int tmp;
+	int result = 0;
 	
 	scanf("%s", str);
 	len = strlen(str);
 	
 	for(i=0; i<len; i++) {
+		tmp = check_number(str[i]);
+		
+		if(tmp != -1) {
+			tmp_number[count] = tmp;
+			count++;
+		} else {
+			tmp = count;
+			for(j=0; j<count; j++) {
+				tmp_sum = pow(10, tmp+1) * tmp_number[j];
+				tmp--;
+			}
+			
+			if(str[i] == '+')
+				result += tmp_sum;
+			else
+				result -= tmp_sum;
+		}
 		
 		
-		printf("%d\n", check_number(str[i]));
 	}
 	
-	
+	printf("%d\n", result);
 	
 	return 0;
 }
