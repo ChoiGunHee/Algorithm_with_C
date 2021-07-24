@@ -37,163 +37,132 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#define MAX_ELEMENT 200
 #define MAX_QUEUE_SIZE 200
 
 typedef struct {
-	int key;
+	int data;
 	int index;
 } element;
 
 typedef struct {
-	element heap[MAX_ELEMENT];
-	int heap_size;
-} HeapType;
-
-typedef struct {
 	int front;
 	int rear;
-	int data[MAX_QUEUE_SIZE];
+	element data[MAX_QUEUE_SIZE];
 } QueueType;
 
-HeapType * create() {
-	return (HeapType * ) malloc(sizeof(HeapType));
-}
-
-void init(HeapType * h) {
-	int i;
-	
-	h->heap_size = 0;
-	for(i=0; i<MAX_ELEMENT; i++) {
-		h->heap[i].key = 0;
-		h->heap[i].index = 0;
-	}
-}
-
-void insert_max_heap(HeapType * h, element item) {
-	int i;
-	i = ++(h->heap_size);
-
-	while( (i != 1) && (item.key > h->heap[i/2].key) ) {
-		h->heap[i] = h->heap[i/2];
-		i /= 2;
-	}
-	h->heap[i] = item;
-}
-
-element delete_max_heap(HeapType * h) {
-	int parent, child;
-	element item, temp;
-	
-	item = h->heap[1];
-	temp = h->heap[(h->heap_size)--];
-	parent = 1;
-	child = 2;
-	
-	while(child <= h->heap_size) {
-		if( (child < h->heap_size) && (h->heap[child].key < h->heap[child + 1].key))
-			child++;
-		
-		if(temp.key >= h->heap[child].key) break;
-		
-		h->heap[parent] = h->heap[child];
-		parent = child;
-		child *= 2;
-	}
-	
-	h->heap[parent] = temp;
-	return item;
-}
-
 void init_queue(QueueType * queue) {
-	queue->rear = -1;
-	queue->front = -1;
+	queue->rear = queue->front = 0;
 }
 
 int is_full(QueueType * queue) {
-	if(queue->rear == MAX_QUEUE_SIZE - 1)
-		return 1;
-	
-	return 0;
+	return  ((queue->rear + 1) % MAX_QUEUE_SIZE == queue->front);
 }
 
 int is_empty(QueueType * queue) {
-	if(queue->front == queue->rear)
-		return 1;
-	
-	return 0;
+	return (queue->front == queue->rear);
 }
 
-int enqueue(QueueType * queue, int data) {
+int enqueue(QueueType * queue, element data) {
 	if( is_full(queue) ) {
+		printf("Queue is Full\n");
 		return -1;
 	}
-	
-	queue->data[++(queue->rear)] = data;
+	queue->rear = (queue->rear +1) % MAX_QUEUE_SIZE;
+	queue->data[queue->rear].data = data.data;
+	queue->data[queue->rear].index = data.index;
 	return 0;
 }
 
-int dequeue(QueueType * queue) {
-	int data;
+element dequeue(QueueType * queue) {
+	if(is_empty(queue))
+		printf("Queue is empty");
+	queue->front = (queue->front + 1) % MAX_QUEUE_SIZE;
+	return queue->data[queue->front];
+}
+
+void print_queue(QueueType * queue) {
+	int i;
 	
-	if( is_empty(queue) ) {
-		return -1;
+	printf("QUEUE(front=%d rear=%d) = ", queue->front, queue->rear);
+	if( !is_empty(queue)) {
+		i = queue->front;
+		do {
+			i = (i+1) % MAX_QUEUE_SIZE;
+			printf("%d | ", queue->data[i].data);
+			if(i == queue->rear) break;
+		} while(i != queue->front);
+	}
+	printf("\n");
+}
+
+int find_max(QueueType * queue) {
+	int i;
+	int max = -1;
+	
+	if(!is_empty(queue)) {
+		i = queue->front;
+		do {
+			i = (i+1) % MAX_QUEUE_SIZE;
+			if(max < queue->data[i].data)
+				max = queue->data[i].data;
+			if(i == queue->rear) break;
+		} while(i != queue->front);
 	}
 	
-	data = queue->data[++(queue->front)];
-	return data;
+	return max;
 }
 
 int main(void) {
 	int T;
 	int N, M;
-	int t, i;
-	int temp;
-	element t_e;
-	HeapType * heap;
 	QueueType q;
+	int value;
+	int value_i;
+	int max;
+	
+	element goal;
+	element tmp;
+	
+	int i, j;
+	
 	int count;
 	
-	heap = create();
-	
 	scanf("%d", &T);
-	
-	for(t=0; t<T; t++) {
-		scanf("%d %d", &N, &M);
-		
-		init(heap);
+	for(i=0; i<T; i++) {
 		init_queue(&q);
 		count = 0;
 		
-		for(i=0; i<N; i++) {
-			scanf("%d", &temp);
-			t_e.key = temp;
-			t_e.index = i;
+		scanf("%d %d", &N, &M);
+		for(j=0; j<N; j++) {
+			scanf("%d", &value);
+			tmp.data = value;
+			tmp.index = j;
+			enqueue(&q, tmp);
 			
-			insert_max_heap(heap, t_e);
-			enqueue(&q, i);
+			if(j==M) {
+				goal.data = value;
+				goal.index = j;
+			}
 		}
 		
-		while(heap->heap_size != 0) {
-			t_e = delete_max_heap(heap);
+		while(!is_empty(&q)) {
+			max = find_max(&q);
+			tmp = dequeue(&q);
 			
-			while(1) {
-				temp = dequeue(&q);
-				if(t_e.index != temp) {
-					enqueue(&q, temp);
-				} else {
-					count++;
-					break;
-				}
+			if(max!=tmp.data) {
+				enqueue(&q, tmp);
+			} else {
+				count++;
 			}
 			
-			if(t_e.index == M)
+			if(max==tmp.data && tmp.index == goal.index) {
 				break;
-
+			}
+			
 		}
 		
 		printf("%d\n", count);
 	}
-	
+
 	return 0;
 }
