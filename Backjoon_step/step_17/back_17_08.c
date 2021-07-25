@@ -22,38 +22,24 @@
 #include <stdio.h>
 #define M_NUM 10007
 
+long long dp[1001][1001];
+
 int main(void) {
 	int N, K;
-	int up=1, down=1;
-	int t_k = 1, t_nk = 1;
-	int i;
+	int i, j;
 	
 	scanf("%d %d", &N, &K);
-	if(K == 0 || K == N) {
-		printf("1\n");
-		return 0;
-	}
 	
 	for(i=1; i<=N; i++) {
-		up *= i;
-		up %= M_NUM;
+		for(j=0; j<=K; j++) {
+			if(i==j || j==0)
+				dp[i][j] = 1;
+			else
+				dp[i][j] = (dp[i-1][j-1] + dp[i-1][j]) % M_NUM;
+		}
 	}
-		
 	
-	for(i=1; i<=K; i++) {
-		t_k *= i;
-		t_k %= M_NUM;
-	}
-		
-	
-	for(i=1; i<=N-K; i++) {
-		t_nk *= i;
-		t_nk %= M_NUM;
-	}
-		
-	
-	down = t_k * t_nk;
-	printf("%d\n", (up/down)%M_NUM);
+	printf("%lld\n", dp[N][K]);
 	
 	return 0;	
 }
