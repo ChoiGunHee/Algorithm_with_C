@@ -88,15 +88,25 @@ int main(void) {
 		gcd_n = gcd(gcd_n, arr_n[i]-arr_n[i-1]);
 	}
 	
-	for(i=2; i<=gcd_n; i++) {
+	printf("gcd-n : %lld\n", gcd_n);
+	
+	for(i=1; i*i<=gcd_n; i++) {
 		if(gcd_n%i == 0) {
 			result[result_count++] = i;
+			result[result_count++] = gcd_n/i;
 		}
+		
+		if(i*i == gcd_n)
+			result[result_count++] = i*i;
 	}
 	
-	for(i=0; i<result_count; i++)
-		printf("%lld ", result[i]);
+	qsort(result, result_count, sizeof(long long), compare);
 	
+	for(i=1; i<result_count; i++) {
+		if(result[i] == result[i-1])
+			continue;
+		printf("%lld ", result[i]);
+	}
 	printf("\n");
 	
 	return 0;	
