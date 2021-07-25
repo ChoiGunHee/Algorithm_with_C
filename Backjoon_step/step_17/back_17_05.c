@@ -88,8 +88,6 @@ int main(void) {
 		gcd_n = gcd(gcd_n, arr_n[i]-arr_n[i-1]);
 	}
 	
-	printf("gcd-n : %lld\n", gcd_n);
-	
 	for(i=1; i*i<=gcd_n; i++) {
 		if(gcd_n%i == 0) {
 			result[result_count++] = i;
