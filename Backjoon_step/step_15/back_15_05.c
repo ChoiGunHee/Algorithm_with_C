@@ -52,8 +52,6 @@ int main(void) {
 		cost[i][2] = tmp_cost[2] + (cost[i-1][1] < cost[i-1][0] ? cost[i-1][1] : cost[i-1][0]);
 	}
 	
-	//printf("%d %d %d\n", cost[N][0], cost[N][1], cost[N][2])
-	
 	min = cost[N][1] < cost[N][2] ? cost[N][1] : cost[N][2];
 	min = min < cost[N][0] ? min : cost[N][0];
 	
