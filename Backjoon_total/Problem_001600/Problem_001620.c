@@ -131,6 +131,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#define MAX_NUM 100001
 
 typedef struct Node {
 	int key;
@@ -171,17 +172,58 @@ void printNodeList(Node * head) {
 	}
 }
 
-int main(void) {
-	Node * tmp_node;
+int hash_func(char * name) {
+	int key = 0;
 	int i;
 	
-	tmp_node = create_node(0, "aaaa");
+	for(i=0; strlen(name); i++)
+		key += name[i];
+
+	return key%MAX_NUM;
+}
+
+int insert_hashNode(Node * list[], char * _name) {
+	int _key = hash_func(_name);
+	Node * _node = list[_key];
 	
-	for(i=1; i<10; i++) {
-		insert_Node(tmp_node, i, "hhhh");
+	if(_node->key != -1)
+		while(_node->next)
+			_node = _node->next;
+	
+	_node->key = _key;
+	strcpy(_node->name, _name);
+	_node->next = 0;
+	
+	return _key;
+}
+
+int init_hashlist(Node list[], int size) {
+	int i;
+	
+	for(i=0; i<size; i++) {
+		list[i].key = -1;
+		list[i].next = 0;
+	}
+}
+
+int main(void) {
+	int N, M;
+	Node poketmons[MAX_NUM];
+	Node * tmp_node;
+	int _key;
+	char _name[25];
+	int i;
+	
+	init_hashlist(&poketmons, MAX_NUM);
+	
+	scanf("%d %d", &N, &M);
+	
+	for(i=1; i<=N; i++) {
+		scanf("%s", _name);
+		insert_hashNode(poketmons, _name);
 	}
 	
-	printNodeList(tmp_node);
+	printf("%s\n", poketmons[hash_func("Weedle")].name);
 	
 	return 0;	
 }
