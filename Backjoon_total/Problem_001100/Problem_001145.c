@@ -1,8 +1,8 @@
 /**
 * 2021. 07. 31
 * Creater : Gunhee Choi
-* Problem Number : 1620
-* Title : 나는야 포켓몬 마스터 이다솜
+* Problem Number : 1145
+* Title : 적어도 대부분의 배수
 
 * Problem :
 다섯 개의 자연수가 있다. 이 수의 적어도 대부분의 배수는 위의 수 중 적어도 세 개로 나누어 지는 가장 작은 자연수이다.
