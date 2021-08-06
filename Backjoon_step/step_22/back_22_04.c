@@ -51,7 +51,7 @@ void init(HeapType * h) {
 	int i;
 	
 	h->heap_size = 0;
-	for(i=0; i<MAX_ELEMENT; i++)
+	for(i=1; i<MAX_ELEMENT; i++)
 		h->heap[i] = -MAX_ELEMENT;
 }
 
@@ -132,6 +132,7 @@ int peek_heap(HeapType * h) {
 int main(void) {
 	int N;
 	int i, temp;
+	int tmp_max, tmp_min;
 	HeapType * max_heap;
 	HeapType * min_heap;
 	
@@ -145,21 +146,26 @@ int main(void) {
 	
 	for(i=0; i<N; i++) {
 		scanf("%d", &temp);
-		if(i==1) {
-			insert_max_heap(max_heap, temp);
-			printf("%d\n", peek_heap(max_heap));
-			continue;
-		}
 		
-		if(max_heap->heap_size <= min_heap->heap_size) {
+		if(max_heap->heap_size == 0)
 			insert_max_heap(max_heap, temp);
-		} else {
-			if(temp<peek_heap(min_heap))
-				insert_max_heap(max_heap, temp);
-			else
-				insert_min_heap(min_heap, temp);
-		}
 		
+		if(max_heap->heap_size > min_heap->heap_size)
+			insert_min_heap(max_heap, temp);
+		else
+			insert_max_heap(min_heap, temp);
+		
+		if(peek_heap(max_heap) >= peek_heap(min_heap)) {
+			tmp_max = peek_heap(max_heap);
+			tmp_min = peek_heap(min_heap);
+			
+			delete_max_heap(max_heap);
+			delete_max_heap(min_heap);
+			
+			insert_max_heap(max_heap, tmp_min);
+			insert_min_heap(min_heap, tmp_max);
+		}
+
 		printf("%d\n", peek_heap(max_heap));
 	}
 	
