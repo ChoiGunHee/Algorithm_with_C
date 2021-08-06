@@ -66,44 +66,40 @@ HeapType * create() {
 }
 
 void init(HeapType * h) {
-	int i;
-	
 	h->heap_size = 0;
-	for(i=0; i<MAX_ELEMENT; i++)
-		h->flag[i] = 1;
 }
 
 void insert_min_heap(HeapType * h, int item) {
 	int i;
-	int flag = 1;
-	
+	int tmp_flag = 1;
+	int tmp_item = item;
 	i = ++(h->heap_size);
-	
-	if(item<0) {
-		item = -item;
-		flag = -1;
+
+	if(tmp_item < 0) {
+		tmp_flag = -1;
+		tmp_item = tmp_flag * tmp_item;
 	}
 	
-	while( (i != 1) && (item < h->heap[i/2]) ) {
+	while( (i != 1) && (tmp_item < h->heap[i/2]) ) {
 		h->heap[i] = h->heap[i/2];
 		h->flag[i] = h->flag[i/2];
 		i /= 2;
 	}
-	
-	h->heap[i] = item;
-	h->flag[i] = flag;
+	h->heap[i] = tmp_item;
+	h->flag[i] = tmp_flag;
 }
 
 int delete_min_heap(HeapType * h) {
 	int parent, child;
-	int item, temp, flag, tmp_flag;
-	int i;
+	int item, temp;
+	int flag, tmp_flag;
 	
 	item = h->heap[1];
 	flag = h->flag[1];
 	
-	temp = h->heap[(h->heap_size)--];
-	tmp_flag = h->flag[(h->heap_size)+1];
+	temp = h->heap[h->heap_size];
+	tmp_flag = h->flag[h->heap_size];
+	(h->heap_size)--;
 	
 	parent = 1;
 	child = 2;
@@ -112,8 +108,7 @@ int delete_min_heap(HeapType * h) {
 		if( (child < h->heap_size) && (h->heap[child] > h->heap[child + 1]))
 			child++;
 		
-		if(temp <= h->heap[child])
-			break;
+		if(temp <= h->heap[child]) break;
 		
 		h->heap[parent] = h->heap[child];
 		h->flag[parent] = h->flag[child];
@@ -123,17 +118,7 @@ int delete_min_heap(HeapType * h) {
 	
 	h->heap[parent] = temp;
 	h->flag[parent] = tmp_flag;
-	/*
-	printf("heap: ");
-	for(i=1; i<10; i++) {
-		printf("%d ", h->heap[i]);
-	}
-	printf("\nflag: ");
-	for(i=1; i<10; i++) {
-		printf("%d ", h->flag[i]);
-	}
-	printf("\n");
-	*/
+	
 	return item * flag;
 }
 
