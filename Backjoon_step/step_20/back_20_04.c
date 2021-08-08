@@ -1,8 +1,8 @@
 /**
-* 2021. 07. 22
+* 2021. 08. 08
 * Creater : Gunhee Choi
-* Problem Number : 2630
-* Title : 색종이 만들기
+* Problem Number : 1629
+* Title : 곱셉
 
 * Problem :
 자연수 A를 B번 곱한 수를 알고 싶다. 단 구하려는 수가 매우 커질 수 있으므로 이를 C로 나눈 나머지를 구하는 프로그램을 작성하시오.
