@@ -40,8 +40,7 @@ int check(int q) {
 }
 
 void count_queen(int s_lct) {
-	int i, j;
-	int flag = 1;
+	int i;
 	
 	if(s_lct == N) {
 		result++;
