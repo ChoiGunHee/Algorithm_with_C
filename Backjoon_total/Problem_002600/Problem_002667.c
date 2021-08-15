@@ -1,5 +1,5 @@
 /**
-* 2021. 07. 30
+* 2021. 08. 15
 * Creater : Gunhee Choi
 * Problem Number : 2667
 * Title : 단지 번호 붙이기
@@ -77,8 +77,8 @@ int compare(const void *a, const void *b)
 int main(void) {
 	int N;
 	int count = 0;
-	char str[30];
-	int danji[30];
+	char str[MAX_NUM];
+	int danji[MAX_NUM*MAX_NUM];
 	int i, j;
 	
 	scanf("%d", &N);
