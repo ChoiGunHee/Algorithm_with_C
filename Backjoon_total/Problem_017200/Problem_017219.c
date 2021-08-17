@@ -51,130 +51,56 @@ N+2번째 줄부터 M개의 줄에 걸쳐 비밀번호를 찾으려는 사이트
 #include <stdlib.h>
 #define MAX_NUM 1000001
 
-typedef struct Node {
-	int key;
-	int num;
-	char name[25];
+typedef struct Site {
+	char site[25];
 	char password[25];
-	int size;
-	struct Node * next;	
-} Node;
+}Site;
 
-Node site[MAX_NUM];
+Site sitelist[MAX_NUM];
 
-void insert_Node(Node * head, int _key, char * _name) {
-	Node * pre_node;
-	Node * _node = (Node *) malloc(sizeof(Node));
+int compare(const void * a, const void * b)
+{
+	struct Site * site1 = (struct  Site *) a;
+	struct  Site * site2 = (struct Site *) b;
 	
-	_node->key = _key;
-	strcpy(_node->name, _name);
+	int result = strcmp(site1->site, site2->site);
 	
-	pre_node = head;
-	while(pre_node->next) {
-		pre_node = pre_node->next;
-	}
-	
-	pre_node->next = _node;
-	
-	return;
+	if(result < 0) return -1;
+	else if(result > 0) return 1;
+
+    return result;
 }
 
-Node * create_node(int _key, char * name, int _num) {
-	Node * node = (Node *) malloc(sizeof(Node));
-	node->key = _key;
-	node->num = _num;
-	strcpy(node->name, name);
-	node->next = 0;
-	node->size = 1;
+int binary_search(char * str, int low, int high) {
+	int mid;
+	int tmp;
 	
-	return node;
-}
-
-Node * search_node(Node * head, char * name) {
-	Node * tmp_node = head;
-	
-	while(strcmp(name, tmp_node->name) != 0) {
-		tmp_node = tmp_node->next;
+	while (low <= high) {
+		mid = (low + high) / 2;
+		tmp = strcmp(str, sitelist[mid].site);
+		if(!tmp) return mid;
+		else if(tmp>0) low = mid + 1;
+		else high = mid - 1;
 	}
 	
-	return tmp_node;
-}
-
-void printNodeList(Node * head) {
-	Node * current = head;
-
-	while(current) {
-		printf("Key : %d, Name : %s\n", current->key, current->name);
-		current = current->next;
-	}
-}
-
-int hash_func(char * name) {
-	int key = 0;
-	int i;
-
-	for(i=0; i<strlen(name); i++) {
-		key *= (name[i]);
-		key++;
-		key %= MAX_NUM;
-	}
-	
-	return key;
-}
-
-
-void insert_hash(char * _name, char * _password, int _num) {
-	int _key = hash_func(_name);
-	Node * tmp_node;
-
-	if(site[_key].size < 1) {
-		site[_key].key = _key;
-		site[_key].num = _num;
-		strcpy(site[_key].name, _name);
-		strcpy(site[_key].password, _password);
-		site[_key].size = 1;
-		
-	} else {
-		tmp_node = &site[_key];
-		tmp_node->size++;
-		
-		while(tmp_node->next)
-			tmp_node = tmp_node->next;
-		
-		tmp_node->next = create_node(_key, _name, _num);
-	}
-}
-
-Node * search_hash(char * _name) {
-	int _key = hash_func(_name);
-	Node * tmp_node = &site[_key];
-	
-	if(strcmp(_name, tmp_node->name) != 0) {
-		tmp_node = search_node(tmp_node, _name);
-	}
-	
-	return tmp_node;
+	return -1;
 }
 
 int main(void) {
 	int N, M;
-	Node * tmp_node;
-	int _key;
-	char _site[25];
-	char _password[25];
+	char tmp_site[25];
 	int i;
 	
 	scanf("%d %d", &N, &M);
-	for(i=1; i<=N; i++) {
-		scanf("%s %s", _site, _password);
-		insert_hash(_site, _password, i);
-	}
+	
+	for(i=0; i<N; i++)
+		scanf("%s %s", sitelist[i].site, sitelist[i].password);
+	
+	qsort(sitelist, N, sizeof(Site), compare);
 	
 	for(i=0; i<M; i++) {
-		scanf("%s", _site);
-		tmp_node = search_hash(_site);
-		printf("%s\n", tmp_node->password);	
+		scanf("%s", tmp_site);
+		printf("%s\n", sitelist[binary_search(tmp_site, 0, N)].password);
 	}
-	
 	return 0;	
 }
