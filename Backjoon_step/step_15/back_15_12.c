@@ -32,36 +32,33 @@ int main(void) {
 	int N;
 	int arr[1001];
 	int dp[1001];
-	int result_max = 1;
-	int result_min = 1;
+	int r_dp[1001];
+	int result=1;
 	int i, j;
 	
 	scanf("%d", &N);
 	for(i=1; i<=N; i++)
 		scanf("%d", &arr[i]);
 	
-	for(i=0; i<=N; i++)
-		dp[i] = 1;
-	
 	for(i=1; i<=N; i++) {
-		for(j=1; j<=i; j++)
+		dp[i]=1;
+		for(j=1; j<i; j++)
 			if(arr[i]>arr[j])
 				dp[i]=max(dp[i], dp[j]+1);
-	
-		result_max=max(result_max, dp[i]);
 	}
-	
-	for(i=0; i<=N; i++)
-		dp[i] = 1;
 	
 	for(i=N; i>=1; i--) {
-		for(j=i; j>=1; j--)
-			if(arr[i]<arr[j])
-				dp[i]=max(dp[i], dp[j]+1);
-	
-		result_min=max(result_min, dp[i]);
+		r_dp[i]=1;
+		for(j=N; j>i; j--)
+			if(arr[i]>arr[j])
+				r_dp[i]=max(r_dp[i], r_dp[j]+1);
 	}
 	
-	printf("%d\n", result_max+result_min-1);
+	for(i=1; i<=N; i++)
+		if(result < (dp[i]+r_dp[i]))
+			result = dp[i]+r_dp[i];
+	
+	printf("%d\n", result-1);
+	
 	return 0;
 }
