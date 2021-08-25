@@ -25,22 +25,55 @@
 **/
 
 #include <stdio.h>
+#define MOD 1000
 #define MAX_N 5
 
-long long result[MAX_NUM][MAX_NUM];
+long long tmp[MAX_N][MAX_N];
+long long result[MAX_N][MAX_N];
 
-/*
 void mul_matrix(long long X[MAX_N][MAX_N], long long Y[MAX_N][MAX_N], int N) {
+	int i, j, t;
+	
 	for(i=0; i<N; i++) {
 		for(j=0; j<N; j++) {
-			for(t=0; t<N; t++) {
-				result[i][j] += X[i][t]*Y[t][j];
-			}
+			tmp[i][j] = 0;
+			for(t=0; t<N; t++)
+				tmp[i][j] += X[i][t]*Y[t][j];
+			tmp[i][j] %= MOD;
 		}
 	}
+	
+	for(i=0; i<N; i++)
+		for(j=0; j<N; j++)
+			X[i][j]=tmp[i][j];
 }
-*/
+
 int main(void) {
+	long long N, B;
+	long long A[MAX_N][MAX_N];
+	int i, j;
+	
+	scanf("%lld %lld", &N, &B);
+	for(i=0; i<N; i++) {
+		for(j=0; j<N; j++)
+			scanf("%lld", &A[i][j]);
+		
+		result[i][i] = 1;
+	}
+	
+	while(B>0) {
+		if(B%2==1)
+			mul_matrix(result, A, N);
+		
+		mul_matrix(A, A, N);
+		B = B/2;
+	}
+	
+	for(i=0; i<N; i++) {
+		for(j=0; j<N; j++)
+			printf("%lld ", result[i][j]);
+		printf("\n");
+	}
 	
 	return 0;	
 }
