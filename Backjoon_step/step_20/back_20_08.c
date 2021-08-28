@@ -28,11 +28,12 @@ n이 주어졌을 때, n번째 피보나치 수를 구하는 프로그램을 작
 **/
 
 #include <stdio.h>
+#define MAX_N 2
+#define MOD 1000000007
 
-long long tmp[MAX_N][MAX_N];
-long long result[MAX_N][MAX_N];
 
 void mul_matrix(long long X[MAX_N][MAX_N], long long Y[MAX_N][MAX_N], int N) {
+	long long tmp[MAX_N][MAX_N];
 	int i, j, t;
 	
 	for(i=0; i<N; i++) {
@@ -48,33 +49,31 @@ void mul_matrix(long long X[MAX_N][MAX_N], long long Y[MAX_N][MAX_N], int N) {
 		for(j=0; j<N; j++)
 			X[i][j]=tmp[i][j];
 }
-
-int main(void) {
-	long long N, B;
-	long long A[MAX_N][MAX_N];
-	int i, j;
-	
-	scanf("%lld %lld", &N, &B);
-	for(i=0; i<N; i++) {
-		for(j=0; j<N; j++)
-			scanf("%lld", &A[i][j]);
-		
-		result[i][i] = 1;
-	}
-	
-	while(B>0) {
-		if(B%2==1)
-			mul_matrix(result, A, N);
-		
-		mul_matrix(A, A, N);
-		B = B/2;
-	}
-	
-	for(i=0; i<N; i++) {
-		for(j=0; j<N; j++)
-			printf("%lld ", result[i][j]);
+/*
+void print_matrix(long long m[2][2]) {
+	long long i, j;
+	for(i=0; i<2; i++) {
+		for(j=0; j<2; j++)
+			printf("%lld ", m[i][j]);
 		printf("\n");
 	}
+}
+*/
+int main(void) {
+	long long n;
+	long long fn[2][2] = {{1,1},{1,0}};
+	long long result[2][2] = {{1,0}, {0,1}};
+	
+	scanf("%lld", &n);
+	
+	while(n>0) {
+		if(n%2==1)
+			mul_matrix(result, fn, MAX_N);
+		mul_matrix(fn, fn, MAX_N);
+		n/=2;
+	}
+	
+	printf("%lld\n", result[0][1]);
 	
 	return 0;	
 }
