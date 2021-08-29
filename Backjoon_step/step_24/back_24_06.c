@@ -49,8 +49,10 @@ typedef struct {
 int N, M;
 QueueType q;
 int map[MAX_NUM][MAX_NUM];
-int dx[4] = {1, 0, -1, 0};
-int dy[4] = {0, 1, 0, -1};
+int visited[MAX_NUM][MAX_NUM];
+int path[MAX_NUM][MAX_NUM];
+int dy[4] = { 0,0,1,-1 };
+int dx[4] = { 1,-1,0,0 };
 
 void init_queue(QueueType * queue) {
 	queue->rear = queue->front = 0;
@@ -104,27 +106,44 @@ element make_struct(int x, int y) {
 	return tmp;
 }
 
-void bfs(QueueType * q) {
+void bfs() {
 	int x, y;
 	int nx, ny;
 	element tmp;
 	int i, j;
 	
-	while(!is_empty(q)) {
-		tmp = dequeue(q);
+	while(!is_empty(&q)) {
+		//print_queue(&q);
+		tmp = dequeue(&q);
 		x = tmp.x;
 		y = tmp.y;
-		
+		printf("y %d, x %d\n", x, y);
 		for(i=0; i<4; i++) {
 			nx = x+dx[i];
 			ny = y+dy[i];
 			
-			if(nx>=0 && nx<M && ny>=0 && ny<N && map[ny][nx]==0) {
-				map[ny][nx] = map[y][x]+1;
-				enqueue(q, make_struct(nx, ny));
+			if(ny<0 || nx<0 || ny>=N || nx>=M)
+				continue;
+			
+			if(map[ny][nx]==0 && visited[ny][nx]==0) {
+				visited[ny][nx] = 1;
+				enqueue(&q, make_struct(nx, ny));
+				
+				path[ny][nx] = path[y][x]+1;
 			}
 		}
 	}
+}
+
+void printPath() {
+    printf("\n[PATH]\n");
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < M; j++) {
+            printf("%2d ", path[i][j]);
+        }
+        printf("\n");
+    }
+    printf("\n");
 }
 
 int main(void) {
@@ -133,38 +152,40 @@ int main(void) {
 	
 	init_queue(&q);
 	
-	scanf("%d %d", &N, &M);
-	for(i=0; i<M; i++) {
-		for(j=0; j<N; j++) {
+	scanf("%d %d", &M, &N);
+	for(i=0; i<N; i++) {
+		for(j=0; j<M; j++) {
 			scanf("%d", &map[i][j]);
-			if(map[i][j]==1) {
-				enqueue(&q, make_struct(i, j));
-			}
-		}
-	}
-	
-	for(i=0; i<M; i++) {
-		for(j=0; j<N; j++) {
-			printf("%d ",map[i][j]);
-		}
-		printf("\n");
-	}
-	
-	bfs(&q);
-	
-	for(i=0; i<M; i++) {
-		for(j=0; j<N; j++) {
-			if(map[i][j]==0) {
-				printf("-1\n");
-				return 0;
-			}
 			
-			if(result<map[i][j])
-				result = map[i][j];
+			if(map[i][j])
+				enqueue(&q, make_struct(i, j));
 		}
 	}
 	
-	printf("%d\n", result-1);
+	bfs();
+	
+    for (i = 0; i < N; i++) {
+        for (j = 0; j < M; j++) {
+            if (map[i][j] == 0 && path[i][j]==0) { //익지 않음 토마토가 있으나 방문한적 없음
+                printf("-1\n");
+                return 0;
+            }
+        }
+    }
+ 
+	
+	
+    /*방문 일자 저장 배열 중 최대값 출력*/
+    result = -1;
+    for (i = 0; i < N; i++) {
+        for (j = 0; j < M; j++) {
+            if (path[i][j] > result) {
+                result = path[i][j];
+            }
+        }
+    }
+    printf("%d\n",result);
+	
 	
 	return 0;	
 }
