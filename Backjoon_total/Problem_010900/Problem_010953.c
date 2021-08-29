@@ -1,8 +1,8 @@
 /**
-* 2021. 08. 23
+* 2021. 08. 29
 * Creater : Gunhee Choi
-* Problem Number : 7576
-* Title : 토마토
+* Problem Number : 10953
+* Title : A+B - 6
 
 * Problem :
 두 정수 A와 B를 입력받은 다음, A+B를 출력하는 프로그램을 작성하시오.
