@@ -1,8 +1,8 @@
 /**
-* 2021. 08. 30
+* 2021. 09. 01
 * Creater : Gunhee Choi
-* Problem Number : 5337
-* Title : 웰컴
+* Problem Number : 11689
+* Title : GCD(n, k) = 1
 
 * Problem :
 자연수 n이 주어졌을 때, GCD(n, k) = 1을 만족하는 자연수 1 ≤ k ≤ n 의 개수를 구하는 프로그램을 작성하시오.
