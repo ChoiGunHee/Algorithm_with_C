@@ -1,5 +1,5 @@
 /**
-* 2021. 09. 01
+* 2021. 08. 31
 * Creater : Gunhee Choi
 * Problem Number : 4355
 * Title : 서로소
