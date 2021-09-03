@@ -31,6 +31,11 @@ xφ(x) = n을 만족하는 양의 정수 x가 존재하면 최소의 x를, 존�
 	
 **/
 
+/**
+
+C++로 풀어야지 하...
+
+**/
 #include <stdio.h>
 #include <stdlib.h>
 
