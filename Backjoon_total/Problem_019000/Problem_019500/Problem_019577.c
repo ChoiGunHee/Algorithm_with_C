@@ -80,10 +80,11 @@ int main(void) {
 	arr = (long long int *) malloc(sizeof(long long int)*n);
 	
 	for(i=1; i*i<=n; i++) {
-		if(n%i==0)
+		if(n%i==0) {
 			arr[arr_count++]=i;
-		if(i!=n/i)
-			arr[arr_count++]=n/i;
+			if(i!=n/i)
+				arr[arr_count++]=n/i;
+		}
 	}
 	
 	qsort(arr, arr_count, sizeof(long long int), compare);
