@@ -31,29 +31,14 @@ xφ(x) = n을 만족하는 양의 정수 x가 존재하면 최소의 x를, 존�
 	
 **/
 
-/**
-
-C++로 풀어야지 하...
-
-**/
 #include <stdio.h>
 #include <stdlib.h>
+#define min(a,b) (a)<=(b)?(a):(b)
+#define INF 100000000
 
-int compare(const void *a, const void *b) {
-	long long int num1 = *(long long int *)a;
-	long long int num2 = *(long long int *)b;
-
-	if(num1 < num2)
-		return -1;
-	else if(num1 > num2)
-		return 1;
-
-	return 0;
-}
-
-long long euler_phi(long long int n) {
-	long long int result = n;
-	long long int  i;
+long long euler_phi(long long n) {
+	 long long result = n;
+	 long long i;
 	
 	for(i=2; i*i<=n; i++) {
 		if(n%i==0) {
@@ -70,29 +55,25 @@ long long euler_phi(long long int n) {
 }
 
 int main(void) {
-	long long int n;
-	long long int * arr;
-	long long int arr_count=0;
-	long long int result=-1;
-	long long int i;
+	 long long n;
+	 long long result=INF;
+	 long long i;
 	
 	scanf("%lld", &n);
-	arr = (long long int *) malloc(sizeof(long long int)*n);
 	
 	for(i=1; i*i<=n; i++) {
 		if(n%i==0) {
-			arr[arr_count++]=i;
+			if(i*euler_phi(i) == n)
+				result = min(result, i);
+			
 			if(i!=n/i)
-				arr[arr_count++]=n/i;
+				if(n/i*euler_phi(n/i) == n)
+					result = min(result, n/i);
 		}
 	}
 	
-	qsort(arr, arr_count, sizeof(long long int), compare);
-	
-	for(i=0; i<arr_count; i++)
-		if(arr[i]*euler_phi(arr[i]) == n)
-			result = arr[i];
-	
+	if(result==INF)
+		result = -1;
 	printf("%lld\n", result);
 	
 	return 0;	
