@@ -1,8 +1,8 @@
 /**
-* 2021. 08. 30
+* 2021. 09. 03
 * Creater : Gunhee Choi
-* Problem Number : 5337
-* Title : 웰컴
+* Problem Number : 5430
+* Title : AC
 
 * Problem :
 선영이는 주말에 할 일이 없어서 새로운 언어 AC를 만들었다. AC는 정수 배열에 연산을 하기 위해 만든 언어이다. 이 언어에는 두 가지 함수 R(뒤집기)과 D(버리기)가 있다.
@@ -131,16 +131,28 @@ element get_rear(DequeType * q) {
 	return q->data[q->rear];
 }
 
+int isNumber(char c) {
+	if(c>='0' && c<='9')
+		return 1;
+	return -1;
+}
+
+int changeNumber(char c) {
+	printf("c : %c, %d\n", c ,c-'0');
+	return c-'0';
+}
+
 int main(void) {
 	int T;
 	int n;
 	char instruct[100001];
 	char arr_str[200];
 	int arr[200];
-	int tmp_num[3];
-	int num_count;
+	int arr_count=0;
+	int tmp_num[3]={0};
+	int num_count=0;
 	int len;
-	int tmp;
+	int tmp=0;
 	int i, j;
 	
 	DequeType q;
@@ -151,14 +163,28 @@ int main(void) {
 	
 	len = strlen(arr_str);
 	for(i=0; i<len; i++) {
-		if(arr_str[i]=='[' || arr_str[i]==']')
+		if(arr_str[i]=='[')
 			continue;
-		if(arr_str[i]==',') {
-			tmp = 
+		
+		if(arr_str[i]!=',')
+			tmp_num[num_count++]= changeNumber(arr_str[i]);
+		
+		if(arr_str[i]==',' || arr_str[i]==']') {
+			tmp += tmp_num[0]*100 + tmp_num[1]*10 + tmp_num[2];
+			if(num_count==2)
+				tmp/=10;
+			else if(num_count==1)
+				tmp/=100;
+			
+			arr[arr_count++]=tmp;
+			
+			tmp=0;
+			num_count=0;
+			tmp_num[0]=0;
+			tmp_num[1]=0;
+			tmp_num[2]=0;
 		}
-		if(arr_str[i]>='0' && arr_str[i]<='9') {
-			tmp_num[]
-		}
+		
 	}
 	
 	for(i=0; i<n; i++)
