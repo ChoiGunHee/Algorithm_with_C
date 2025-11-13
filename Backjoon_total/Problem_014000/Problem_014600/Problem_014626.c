@@ -29,7 +29,6 @@ ISBN 13자리 숫자가 입력된다. 훼손된 숫자는 *로 표시한다. (�
 
 int main(void) {
 	char ISBN[14];
-    int m = 0;
 	long long sum = 0; 
     long long i_x = 0;
     long long result = -1;
@@ -48,7 +47,6 @@ int main(void) {
             sum += (ISBN[i] - '0') * 3;
         }
     }
-    m = ISBN[12] - '0';
     w = (i_x % 2 == 0) ? 1 : 3;
 
     for(int i=0; i<=9; i++) {
