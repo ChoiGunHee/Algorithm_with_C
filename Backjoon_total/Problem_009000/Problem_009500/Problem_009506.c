@@ -35,7 +35,41 @@ n이 완전수가 아니라면 n is NOT perfect. 를 출력한다.
 #include <stdio.h>
 
 int main(void) {
-    
+    int n;
+    int sum = 0;
+    int divisors[100000];
+    int count = 0;
+
+    while(1) {
+        scanf("%d", &n);
+        if(n == -1) {
+            break;
+        }
+
+        sum = 0;
+        divisors[100000];
+        count = 0;
+
+        for(int i=1; i<=n/2; i++) {
+            if(n % i == 0) {
+                divisors[count++] = i;
+                sum += i;
+            }
+        }
+
+        if(sum == n) {
+            printf("%d = ", n);
+            for(int i=0; i<count; i++) {
+                if(i == count - 1) {
+                    printf("%d\n", divisors[i]);
+                } else {
+                    printf("%d + ", divisors[i]);
+                }
+            }
+        } else {
+            printf("%d is NOT perfect.\n", n);
+        }
+    }
     
     return 0;
 }
