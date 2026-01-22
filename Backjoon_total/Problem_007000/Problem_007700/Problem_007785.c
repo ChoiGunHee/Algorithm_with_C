@@ -35,47 +35,91 @@ Artem
 #include <stdlib.h>
 #include <string.h>
 
+typedef struct Node {
+    char name[6];
+    struct Node* next;
+} Node;
+
+#define HASH_SIZE 100003
+
+Node* hashTable[HASH_SIZE];
+
+// 해시 함수
+int hashFunction(const char* str) {
+    int hash = 0;
+    while (*str) {
+        hash = (hash * 31 + *str) % HASH_SIZE;
+        str++;
+    }
+    return hash;
+}
+
+void insert(const char* name) {
+    int hash = hashFunction(name);
+    Node* newNode = (Node*)malloc(sizeof(Node));
+    strcpy(newNode->name, name);
+    newNode->next = hashTable[hash];
+    hashTable[hash] = newNode;
+}
+
+void removeName(const char* name) {
+    int hash = hashFunction(name);
+    Node* current = hashTable[hash];
+    Node* prev = NULL;
+
+    while (current) {
+        if (strcmp(current->name, name) == 0) {
+            if (prev) {
+                prev->next = current->next;
+            } else {
+                hashTable[hash] = current->next;
+            }
+            free(current);
+            return;
+        }
+        prev = current;
+        current = current->next;
+    }
+}
+
+int collectNames(char** result) {
+    int count = 0;
+    for (int i = 0; i < HASH_SIZE; i++) {
+        Node* current = hashTable[i];
+        while (current) {
+            result[count] = current->name;
+            count++;
+            current = current->next;
+        }
+    }
+    return count;
+}
+
+int compare(const void* a, const void* b) {
+    return strcmp(*(const char**)b, *(const char**)a); // 역순 정렬
+}
+
 int main(void) {
     int n;
     scanf("%d", &n);
-    char name[6];
-    char *people[1000000];
-    char temp[6];
-    int count = 0;
 
+    char name[6], action[6];
     for (int i = 0; i < n; i++) {
-        scanf("%s %s", name, temp);
-        if (strcmp(temp, "enter") == 0) {
-            people[count] = malloc(strlen(name) + 1);
-            strcpy(people[count], name);
-            count++;
+        scanf("%s %s", name, action);
+        if (strcmp(action, "enter") == 0) {
+            insert(name);
         } else {
-            for (int j = 0; j < count; j++) {
-                if (strcmp(people[j], name) == 0) {
-                    free(people[j]);
-                    people[j] = people[count - 1];
-                    count--;
-                    break;
-                }
-            }
+            removeName(name);
         }
     }
 
-    // 사전 순의 역순으로 정렬
-    for (int i = 0; i < count - 1; i++) {
-        for (int j = i + 1; j < count; j++) {
-            if (strcmp(people[i], people[j]) < 0) {
-                char *temp = people[i];
-                people[i] = people[j];
-                people[j] = temp;
-            }
-        }
-    }
+    char* result[1000000];
+    int count = collectNames(result);
 
-    // 결과 출력
+    qsort(result, count, sizeof(char*), compare);
+
     for (int i = 0; i < count; i++) {
-        printf("%s\n", people[i]);
-        free(people[i]); // 메모리 해제
+        printf("%s\n", result[i]);
     }
 
     return 0;
